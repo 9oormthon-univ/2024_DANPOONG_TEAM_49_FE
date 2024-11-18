@@ -23,7 +23,7 @@ const Post = () => {
                     <span className='productName'>{mockPostData.title}</span>
                     <span className='productPrice'>{mockPostData.price}</span>
                     <span className='remainAmount'>{mockPostData.total}개중 {mockPostData.remain}개 남음</span>
-                    <span className='platform'>구매처 : {mockPostData.flatform}</span>
+                    <span className='platform'>구매처 :{mockPostData.flatform}</span>
                 </ProductSection>
 
                 <PriceSection>
