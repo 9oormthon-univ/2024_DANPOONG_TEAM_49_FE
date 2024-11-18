@@ -15,7 +15,7 @@ function App() {
           <Route path='*' element={<NotFound/>} />
           <Route path="/" element={<Main />} />
           <Route path='/write' element={<Write/>} />
-          <Route path='/post' element={<Post/>} />
+          <Route path="/post/:id" element={<Post />} />
         </Routes>
       </BrowserRouter>
     </>
