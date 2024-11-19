@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { Container } from './Write';
 
 const Login = () => {
     // navigate
@@ -11,7 +12,7 @@ const Login = () => {
 
     return (
         <>
-            <ContentWrapper>
+            <Container>
             <h1>기숙상점</h1>
                 <ImageButton
                     src="path/to/signup-image.jpg"
@@ -20,15 +21,15 @@ const Login = () => {
                 <ImageButton
                     src="path/to/kakao-login-image.jpg"
                     alt="카카오 로그인"
-                />
-            </ContentWrapper>
+                />s
+            </Container>
         </>
     );
 };
 
 export default Login;
 
-// 스타일 컴포넌트
+
 const HeaderBar = styled.div`
     width: 100%;
     height: 56px;

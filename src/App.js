@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import Main from './pages/Main';
 import Post from './pages/Post';
 import Login from './pages/Login';
+import SignUpEmail from './pages/SignUpEmail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/write' element={<Write/>} />
           <Route path='/post' element={<Post/>} />
           <Route path='/login' element={<Login/>} />
+          <Route path='/signUpEmail' element={<SignUpEmail/>} />
         </Routes>
       </BrowserRouter>
     </>
