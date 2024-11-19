@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import SignUpEmailCert from './SignUpEmailCert';
 
-const SignUpEmail = () => {
+const SignUpEmailCert = () => {
     // navigate
     const navigate = useNavigate();
     const goToMain = () => {
@@ -12,22 +11,22 @@ const SignUpEmail = () => {
 
     return (
         <Container>
-            <h1>학교 인증</h1>
-            <h5>학교 이메일을 입력해주세요</h5>
+            <h1>인증 코드 입력</h1>
+            <h5>발송된 인증 코드를 입력해주세요</h5>
             <input
                 type="text"
-                placeholder="학교 이메일 입력"
+                placeholder="입력"
             />
             <InputButton
                 type="button"
                 value="다음  →"
-                onClick={() => navigate('/signUpEmailCert')}
+                onClick={goToMain}
             />
         </Container>
     );
 };
 
-export default SignUpEmail;
+export default SignUpEmailCert;
 
 
 const Container = styled.div`
