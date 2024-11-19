@@ -37,7 +37,7 @@ const Write = () => {
         <HeaderBar>
             <div className='HeadGroup'>
                 <button className="backBtn" onClick={goToMain}>
-                    &lt;
+                    <img src='/assets/header_back.svg' alt='뒤로가기'/>
                 </button>
                 <span>공동구매 진행하기</span>
             </div>
