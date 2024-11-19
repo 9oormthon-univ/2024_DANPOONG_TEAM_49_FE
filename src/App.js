@@ -20,8 +20,8 @@ function App() {
           <Route path='/write' element={<Write/>} />
           <Route path='/post' element={<Post/>} />
           <Route path='/login' element={<Login/>} />
-          <Route path='/signupemail' element={<SignUpEmail/>} />
-          <Route path='/signupemailcert' element={<SignUpEmailCert/>} />
+          <Route path='/signUpemail' element={<SignUpEmail/>} />
+          <Route path='/signUpemailCert' element={<SignUpEmailCert/>} />
         </Routes>
       </BrowserRouter>
     </>

@@ -10,19 +10,21 @@ const SignUpEmailCert = () => {
     };
 
     return (
-        <Container>
-            <h1>인증 코드 입력</h1>
-            <h5>발송된 인증 코드를 입력해주세요</h5>
-            <input
-                type="text"
-                placeholder="입력"
-            />
-            <InputButton
-                type="button"
-                value="다음  →"
-                onClick={goToMain}
-            />
-        </Container>
+        <>
+            <Container>
+                <h1>인증 코드 입력</h1>
+                <h5>발송된 인증 코드를 입력해주세요</h5>
+                <input
+                    type="text"
+                    placeholder="입력"
+                />
+                <InputButton
+                    type="button"
+                    value="다음  →"
+                    onClick={goToMain}
+                />
+            </Container>
+        </>
     );
 };
 
