@@ -168,7 +168,6 @@ const Write = () => {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  margin-bottom: 20px;
 
   .HeadGroup {
     display: flex;

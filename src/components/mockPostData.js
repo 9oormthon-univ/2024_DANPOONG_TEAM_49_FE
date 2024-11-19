@@ -1,11 +1,13 @@
 const mockPostData = [
     {
         id: 1,
-        title:"다우니 엑스퍼트 실내건조 플러스 초고농축 섬유유연제 프레시 클린 본품, 1.05L",
+        title:"다우니 엑스퍼트 실내건조 플러스, 1.05L",
         total:40,
         remain:6,
         price:18330,
-        platform:"쿠팡"
+        save:600,
+        platform:"쿠팡",
+        img:"/assets/samdasoo.png"
     },
     {
         id: 2,
@@ -13,7 +15,9 @@ const mockPostData = [
         total:20,
         remain:13,
         price:33000,
-        platform:"쿠팡"
+        save:1600,
+        platform:"쿠팡",
+        img:"/assets/samdasoo.png"
     },
     {
         id: 3,
@@ -21,7 +25,9 @@ const mockPostData = [
         total:10,
         remain:2,
         price:6000,
-        platform:"쿠팡"
+        save:230,
+        platform:"쿠팡",
+        img:"/assets/samdasoo.png"
     },
   ];
   
