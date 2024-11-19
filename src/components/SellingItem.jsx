@@ -44,6 +44,7 @@ const AuctionItem=styled.div`
   background-color: #ffffff;
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border:0.1px solid #D9D9D9;
   border-radius: 8px;
   margin-bottom: 20px;
   height: 104px;
