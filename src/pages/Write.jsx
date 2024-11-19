@@ -136,7 +136,7 @@ const Write = () => {
                     <label>개당 절약 금액</label>
                     <input
                         type="text"
-                        placeholder="여기에 절약 금액이 표시되요."
+                        placeholder="여기에 절약 금액이 표시돼요."
                         value={save}
                         onChange={(e) => setSave(e.target.value)}
                         className={save ? "filled" : ""}
