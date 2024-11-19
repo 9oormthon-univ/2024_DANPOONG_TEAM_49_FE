@@ -8,6 +8,9 @@ import Post from './pages/Post';
 import Login from './pages/Login';
 import SignUpEmail from './pages/SignUpEmail';
 import SignUpEmailCert from './pages/SignUpEmailCert';
+import SignUpSuccess from './pages/SignUpSuccess';
+import SignUpSite from './pages/SignUpSite';
+import SignUpSiteConfirm from './pages/SignUpSiteConfirm';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
           <Route path='/login' element={<Login/>} />
           <Route path='/signUpemail' element={<SignUpEmail/>} />
           <Route path='/signUpemailCert' element={<SignUpEmailCert/>} />
+          <Route path='/signUpSuccess' element={<SignUpSuccess/>} />
+          <Route path='/signUpSite' element={<SignUpSite/>} />
+          <Route path='/signUpSiteConfirm' element={<SignUpSiteConfirm/>} />
         </Routes>
       </BrowserRouter>
     </>
