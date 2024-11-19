@@ -5,14 +5,11 @@ import progressBarImage from '../images/progressBar2.svg';
 
 const SignUpEmailCert = () => {
     const navigate = useNavigate();
-    const goToMain = () => {
-        navigate("/");
-    };
 
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signUpEmail')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/signup/email')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
                 <h1>인증 코드 입력</h1>
@@ -21,7 +18,7 @@ const SignUpEmailCert = () => {
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/signUpSite')}
+                    onClick={() => navigate('/signup/site')}
                 />
             </Container>
         </>

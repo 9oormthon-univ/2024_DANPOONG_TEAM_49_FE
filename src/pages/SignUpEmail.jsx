@@ -18,7 +18,7 @@ const SignUpEmail = () => {
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/signUpEmailCert')}
+                    onClick={() => navigate('/signup/email-cert')}
                 />
             </Container>
         </>

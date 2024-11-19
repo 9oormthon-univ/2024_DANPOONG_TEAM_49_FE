@@ -11,6 +11,8 @@ import SignUpEmailCert from './pages/SignUpEmailCert';
 import SignUpSuccess from './pages/SignUpSuccess';
 import SignUpSite from './pages/SignUpSite';
 import SignUpSiteConfirm from './pages/SignUpSiteConfirm';
+import MypageJoined from './pages/MypageJoined';
+import MypageHosted from './pages/MypageHosted';
 
 function App() {
   return (
@@ -18,16 +20,18 @@ function App() {
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
-          <Route path='*' element={<NotFound/>} />
-          <Route path="/" element={<Main />} />
-          <Route path='/write' element={<Write/>} />
-          <Route path='/post' element={<Post/>} />
-          <Route path='/login' element={<Login/>} />
-          <Route path='/signUpemail' element={<SignUpEmail/>} />
-          <Route path='/signUpemailCert' element={<SignUpEmailCert/>} />
-          <Route path='/signUpSuccess' element={<SignUpSuccess/>} />
-          <Route path='/signUpSite' element={<SignUpSite/>} />
-          <Route path='/signUpSiteConfirm' element={<SignUpSiteConfirm/>} />
+        <Route path='*' element={<NotFound/>} />
+        <Route path="/" element={<Main />} />
+        <Route path='/write' element={<Write/>} />
+        <Route path='/post' element={<Post/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/signup/email' element={<SignUpEmail/>} />
+        <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
+        <Route path='/signup/success' element={<SignUpSuccess/>} />
+        <Route path='/signup/site' element={<SignUpSite/>} />
+        <Route path='/signup/site-confirm' element={<SignUpSiteConfirm/>} />
+        <Route path='/mypage/joined' element={<MypageJoined/>} />
+        <Route path='/mypage/hosted' element={<MypageHosted/>} />
         </Routes>
       </BrowserRouter>
     </>

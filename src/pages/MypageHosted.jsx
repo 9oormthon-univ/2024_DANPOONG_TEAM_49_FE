@@ -1,36 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import progressBarImage from '../images/progressBar2.svg';
 
-const SignUpSite = () => {
+const MypageHosted = () => {
     const navigate = useNavigate();
 
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signup/email')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/login')}>&lt;</BackButton>
+                <h3>마이페이지</h3>
             </HeaderBar>
+
             <Container>
-                <h1>위치 인증</h1>
-                <h5>위치를 확인중입니다</h5>
+                
+                
             </Container>
         </>
     );
 };
 
-export default SignUpSite;
+export default MypageHosted;
 
 const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 16px;
     position: relative;
-    background: url(${progressBarImage}) no-repeat center bottom;
-    background-size: 100% 12px;
-    object-fit: cover;
+    border-bottom: 1px solid #FFFFFF;
 `;
 
 const BackButton = styled.button`
@@ -39,6 +39,8 @@ const BackButton = styled.button`
     border: none;
     cursor: pointer;
     color: black;
+    position: absolute;
+    left: 16px; 
 `;
 
 const Container = styled.div`
@@ -50,4 +52,3 @@ const Container = styled.div`
     height: calc(100vh - 56px);
     background-color: #f9f9f9;
 `;
-

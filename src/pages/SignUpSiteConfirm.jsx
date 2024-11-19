@@ -9,7 +9,7 @@ const SignUpSiteConfirm = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signUpSite')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/signup/site')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
                 <h1>위치 인증</h1>
@@ -17,7 +17,7 @@ const SignUpSiteConfirm = () => {
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/signUpSuccess')}
+                    onClick={() => navigate('/signup/success')}
                 />
             </Container>
         </>
