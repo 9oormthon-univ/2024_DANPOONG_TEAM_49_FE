@@ -102,7 +102,7 @@ const InputGroup = styled.div`
   height: 52px;
   padding: 0 16px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   .search-input {
     flex: 1;
@@ -141,7 +141,7 @@ const TagHeader = styled.div`
   .recent-label {
     font-size: 14px;
     font-weight: bold;
-    color: #000;
+    color: #949494;
   }
 
   .delete-all {
@@ -171,15 +171,14 @@ const TagWrapper = styled.div`
     padding: 0 8px;
     height: 26px;
     border-radius: 12px;
-    border: 1px solid #000;
-    color: #333;
+    border: 1px solid #949494;
+    color: #949494;
     font-size: 12px;
-    background: #f9f9f9;
 
     .deleteBtn {
       margin-left: 6px;
       font-size: 12px;
-      color: #ff5c5c;
+      color:#949494;
       background: none;
       border: none;
       cursor: pointer;

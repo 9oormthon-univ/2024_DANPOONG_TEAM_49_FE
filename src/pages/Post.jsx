@@ -23,7 +23,7 @@ const Post = () => {
         setQuantity(quantity + 1);
     };
 
-    const goToMain = () => {
+    const goToHome = () => {
         navigate('/');
     };
 
@@ -35,7 +35,7 @@ const Post = () => {
         <>
             <HeaderBar>
                 <div className="HeadGroup">
-                    <button className="backBtn" onClick={goToMain}>
+                    <button className="backBtn" onClick={goToHome}>
                         <img src="/assets/header_back.svg" alt="뒤로가기" />
                     </button>
                     <span>공동구매 진행하기</span>
@@ -104,7 +104,7 @@ const Post = () => {
                         </ul>
                     </div>
                 </ParticipantSection>
-                <SubmitButton onClick={goToMain}>예약하기</SubmitButton>
+                <SubmitButton onClick={goToHome}>예약하기</SubmitButton>
             </Container>
         </>
     );

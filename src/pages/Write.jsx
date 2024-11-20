@@ -13,7 +13,7 @@ const Write = () => {
     const [save, setSave] = useState("");
   
     const navigate = useNavigate();
-    const goToMain = () => {
+    const goToHome = () => {
       navigate("/");
     };
   
@@ -36,7 +36,7 @@ const Write = () => {
       <>
         <HeaderBar>
             <div className='HeadGroup'>
-                <button className="backBtn" onClick={goToMain}>
+                <button className="backBtn" onClick={goToHome}>
                     <img src='/assets/header_back.svg' alt='뒤로가기'/>
                 </button>
                 <span>공동구매 진행하기</span>
