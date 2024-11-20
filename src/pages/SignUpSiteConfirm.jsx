@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar3.png';
-import mapImage from '../images/map.png';
 import backButtonImage from '../images/backButton.png';
 
 const SignUpSiteConfirm = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Kakao Map API를 비동기적으로 로드
+        const script = document.createElement('script');
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=4b1593cd10be7af1b435d6974e7be1e2&autoload=false";
+        script.async = true;
+        script.onload = () => {
+            window.kakao.maps.load(() => {
+                const container = document.getElementById('map');
+                const options = {
+                    center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 기본 위치 설정
+                    level: 3
+                };
+                const map = new window.kakao.maps.Map(container, options);
+            });
+        };
+        document.body.appendChild(script);
+
+        // Clean up: remove script on component unmount
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
 
     return (
         <>
@@ -15,7 +37,7 @@ const SignUpSiteConfirm = () => {
             </HeaderBar>
             <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
-                <MapImage src={mapImage} alt="Map Image" />
+                <Map id="map"></Map>
                 <Title>위치 인증</Title>
                 <Subtitle>해당 위치가 알맞은가요?</Subtitle>
                 <InputButton
@@ -53,6 +75,7 @@ const ProgressBar = styled.img`
     width: 100%;
     height: 12px;
 `;
+
 const Title = styled.h1`
     font-size: 28px;
     margin-bottom: 15px;
@@ -68,7 +91,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: calc(100vh - 56px);
     background-color: #f9f9f9;
 `;
@@ -85,8 +107,9 @@ const InputButton = styled.input`
     transition: background-color 0.3s ease;
 `;
 
-const MapImage = styled.img`
+const Map = styled.div`
     width: 300px;
-    height: auto;
+    height: 360px;
+    margin-top: 63px;
     margin-bottom: 30px;
 `;
