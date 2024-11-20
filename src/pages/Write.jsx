@@ -14,7 +14,7 @@ const Write = () => {
   
     const navigate = useNavigate();
     const goToHome = () => {
-      navigate("/");
+      navigate("/home");
     };
   
     const isFormComplete = () => {

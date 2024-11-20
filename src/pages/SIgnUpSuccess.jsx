@@ -18,7 +18,7 @@ const SignUpSuccess = () => {
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/main')} // 메인 페이지로 이동
+                    onClick={() => navigate('/home')} // 메인 페이지로 이동
                 />
             </Container>
         </>
