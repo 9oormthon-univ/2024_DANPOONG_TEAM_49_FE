@@ -12,7 +12,7 @@ const SignUpEmailCert = () => {
                 <BackButton onClick={() => navigate('/signup/email')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
-                <h1>인증 코드 입력</h1>
+                <tilte>인증 코드 입력</tilte>
                 <h5>발송된 인증 코드를 입력해주세요</h5>
                 <InputField type="text" placeholder="학교 이메일 입력" />
                 <InputButton

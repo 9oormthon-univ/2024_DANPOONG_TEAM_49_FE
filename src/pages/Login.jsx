@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import kakaoImage from '../images/kakao.png';
 
 const Login = () => {
     // navigate
@@ -14,12 +15,11 @@ const Login = () => {
             <Container>
                 <Title>기숙상점</Title>
                 <ButtonWrapper>
-                    <ImageButton
-                        src="path/to/signup-image.jpg"
-                        alt="3초 바로 회원가입"
-                    />
-                    <ImageButton
-                        src="path/to/kakao-login-image.jpg"
+                    <SignupButton onClick={goToMain}>
+                        3초 바로 회원가입 ⚡
+                    </SignupButton>
+                    <KakaoButton
+                        src={kakaoImage}
                         alt="카카오 로그인"
                     />
                 </ButtonWrapper>
@@ -36,12 +36,13 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f9f9f9;
 `;
 
 const Title = styled.h1`
     font-size: 32px;
     margin-bottom: 20px;
+    color: #AF3400;
+    margin-bottom: 30px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -51,11 +52,23 @@ const ButtonWrapper = styled.div`
     gap: 15px;
 `;
 
-const ImageButton = styled.img`
-    width: 200px;
-    height: auto;
+const SignupButton = styled.button`
+    width: 173px;
+    height: 37px;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
     cursor: pointer;
-    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+`;
+
+const KakaoButton = styled.img`
+    width: 300px;
+    height: 45px;
+    cursor: pointer;
+    border: none;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
