@@ -10,12 +10,12 @@ const MypageJoined = () => {
 
     // 임시로 4개의 박스 데이터를 생성
     const boxes = [
-        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
-        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
-        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
-        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage }
+        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage, isClosed: false },
+        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage, isClosed: false },
+        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage, isClosed: true },
+        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage, isClosed: false }
     ];
-
+        
     return (
         <>
             <HeaderBar>
@@ -45,7 +45,8 @@ const MypageJoined = () => {
                 </Nav>
                 <Contents>
                     {boxes.map((box, index) => (
-                        <Box key={index}>
+                        <Box key={index} isClosed={box.isClosed}>
+                            {box.isClosed && <ClosedOverlay>마감</ClosedOverlay>}
                             <BoxImg src={box.img} alt={box.name} />
                             <BoxDetails>
                                 <BoxName>{box.name}</BoxName>
@@ -146,6 +147,9 @@ const Box = styled.div`
     max-width: 600px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    opacity: ${(props) => (props.isClosed ? 0.5 : 1)};
+    pointer-events: ${(props) => (props.isClosed ? 'none' : 'auto')};
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #aaa #f7f7f7;
@@ -162,6 +166,22 @@ const Box = styled.div`
     &::-webkit-scrollbar-track {
         background-color: #f7f7f7;
     }
+`;
+
+const ClosedOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    z-index: 1; 
 `;
 
 const BoxImg = styled.img`
