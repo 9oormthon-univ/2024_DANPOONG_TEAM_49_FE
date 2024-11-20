@@ -11,8 +11,9 @@ const SignUpSiteConfirm = () => {
     return (
         <>
             <HeaderBar>
-                <ProgressBar src={progressBarImage} alt="Progress Bar" />
+                <BackButton onClick={() => navigate('/signup/email-cert')} />
             </HeaderBar>
+            <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
                 <MapImage src={mapImage} alt="Map Image" />
                 <Title>위치 인증</Title>
@@ -32,16 +33,26 @@ export default SignUpSiteConfirm;
 const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
+    display: flex;
     align-items: center;
     padding: 0 16px;
     position: relative;
+`;
+
+const BackButton = styled.button`
+    width: 48px;
+    height: 48px;
+    background: url(${backButtonImage}) no-repeat center center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin: 1px 1px 1px;
 `;
 
 const ProgressBar = styled.img`
     width: 100%;
     height: 12px;
 `;
-
 const Title = styled.h1`
     font-size: 28px;
     margin-bottom: 15px;

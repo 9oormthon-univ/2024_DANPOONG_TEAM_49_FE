@@ -22,8 +22,8 @@ const SignUpEmail = () => {
             <HeaderBar>
                 <BackButton onClick={() => navigate('/login')} />
             </HeaderBar>
+            <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
-                <ProgressBar src={progressBarImage} alt="Progress Bar" />
                 <Title>학교 인증</Title>
                 <Subtitle>학교 이메일을 입력해주세요</Subtitle>
                 <InputField
@@ -48,6 +48,7 @@ export default SignUpEmail;
 const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
+    display: flex;
     align-items: center;
     padding: 0 16px;
     position: relative;
@@ -60,13 +61,12 @@ const BackButton = styled.button`
     background-size: contain;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
+    margin: 1px 1px 1px;
 `;
 
 const ProgressBar = styled.img`
     width: 100%;
     height: 12px;
-    margin-bottom: 20px;
 `;
 
 const Title = styled.h1`

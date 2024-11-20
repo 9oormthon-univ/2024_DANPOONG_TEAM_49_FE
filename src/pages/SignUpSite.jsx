@@ -46,8 +46,8 @@ const SignUpSite = () => {
         <>
             <HeaderBar>
                 <BackButton onClick={() => navigate('/signup/email-cert')} />
-                <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
+            <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
                 <Title>위치 인증</Title>
                 <Subtitle>위치를 확인중입니다</Subtitle>
@@ -67,10 +67,24 @@ const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 0 16px;
     position: relative;
+`;
+
+const BackButton = styled.button`
+    width: 48px;
+    height: 48px;
+    background: url(${backButtonImage}) no-repeat center center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin: 1px 1px 1px;
+`;
+
+const ProgressBar = styled.img`
+    width: 100%;
+    height: 12px;
 `;
 
 const Title = styled.h1`
@@ -81,21 +95,6 @@ const Title = styled.h1`
 const Subtitle = styled.h5`
     font-size: 16px;
     margin-bottom: 40px;
-`;
-
-const BackButton = styled.button`
-    width: 48px;
-    height: 48px;
-    background: url(${backButtonImage}) no-repeat center center;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px; 
-`;
-
-const ProgressBar = styled.img`
-    width: 100%;
-    height: 12px;
 `;
 
 const Container = styled.div`
