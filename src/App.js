@@ -8,7 +8,7 @@ import Post from './pages/Post';
 import Login from './pages/Login';
 import SignUpEmail from './pages/SignUpEmail';
 import SignUpEmailCert from './pages/SignUpEmailCert';
-import SignUpSuccess from './pages/SignUpSuccess';
+import SignUpSuccess from './pages/SIgnUpSuccess';
 import SignUpSite from './pages/SignUpSite';
 import SignUpSiteConfirm from './pages/SignUpSiteConfirm';
 import MypageJoined from './pages/MypageJoined';
