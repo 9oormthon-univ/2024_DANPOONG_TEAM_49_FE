@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar1.svg';
+import mapImage from '../images/map.png'; // map 이미지 임포트
 
 const SignUpSiteConfirm = () => {
     const navigate = useNavigate();
@@ -12,8 +13,9 @@ const SignUpSiteConfirm = () => {
                 <BackButton onClick={() => navigate('/signup/site')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
-                <h1>위치 인증</h1>
-                <h5>해당 위치가 알맞은가요?</h5>
+                <MapImage src={mapImage} alt="Map Image" /> {/* map 이미지를 Title 위에 추가 */}
+                <Title>위치 인증</Title>
+                <Subtitle>해당 위치가 알맞은가요?</Subtitle>
                 <InputButton
                     type="button"
                     value="다음  →"
@@ -36,6 +38,16 @@ const HeaderBar = styled.div`
     background: url(${progressBarImage}) no-repeat center bottom;
     background-size: 100% 12px;
     object-fit: cover;
+`;
+
+const Title = styled.h1`
+    font-size: 28px;
+    margin-bottom: 15px;
+`;
+
+const Subtitle = styled.h5`
+    font-size: 16px;
+    margin-bottom: 40px;
 `;
 
 const BackButton = styled.button`
@@ -63,6 +75,13 @@ const InputButton = styled.input`
     background-color: #AF3400;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+`;
+
+const MapImage = styled.img`
+    width: 300px;
+    height: auto;
+    margin-bottom: 30px;
 `;
