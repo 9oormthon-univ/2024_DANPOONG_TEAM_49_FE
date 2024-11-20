@@ -40,9 +40,8 @@ const Container = styled.div`
 
 const Title = styled.h1`
     font-size: 32px;
-    margin-bottom: 20px;
-    color: #AF3400;
     margin-bottom: 30px;
+    color: #AF3400;
 `;
 
 const ButtonWrapper = styled.div`

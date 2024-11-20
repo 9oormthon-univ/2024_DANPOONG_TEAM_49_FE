@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar1.svg';
 
 const SignUpEmail = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [isValid, setIsValid] = useState(false);
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValid(emailRegex.test(value));
+    };
 
     return (
         <>
@@ -12,13 +22,19 @@ const SignUpEmail = () => {
                 <BackButton onClick={() => navigate('/login')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
-                <h1>학교 인증</h1>
-                <h5>학교 이메일을 입력해주세요</h5>
-                <InputField type="text" placeholder="학교 이메일 입력" />
+                <Title>학교 인증</Title>
+                <Subtitle>학교 이메일을 입력해주세요</Subtitle>
+                <InputField
+                    type="text"
+                    placeholder="학교 이메일 입력"
+                    value={email}
+                    onChange={handleInputChange}
+                />
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/signup/email-cert')}
+                    onClick={() => isValid && navigate('/signup/email-cert')}
+                    isValid={isValid}
                 />
             </Container>
         </>
@@ -37,6 +53,16 @@ const HeaderBar = styled.div`
     background: url(${progressBarImage}) no-repeat center bottom;
     background-size: 100% 12px;
     object-fit: cover;
+`;
+
+const Title = styled.h1`
+    font-size: 32px;
+    margin-bottom: 15px;
+`;
+
+const Subtitle = styled.h5`
+    font-size: 16px;
+    margin-bottom: 40px;
 `;
 
 const BackButton = styled.button`
@@ -58,21 +84,26 @@ const Container = styled.div`
 `;
 
 const InputField = styled.input`
-    margin-top: 10px;
-    padding: 10px;
-    width: 70%;
+    width: 314px;
+    height: 47px;
     font-size: 16px;
+    color: black;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 12px;
+    transition: background-color 0.3s ease;
 `;
 
 const InputButton = styled.input`
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #AF3400;
+    background-color: ${(props) => (props.isValid ? '#AF3400' : '#C36E49')};
     color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 16px;
+    cursor: ${(props) => (props.isValid ? 'pointer' : 'not-allowed')};
+    transition: background-color 0.3s ease;
 `;
