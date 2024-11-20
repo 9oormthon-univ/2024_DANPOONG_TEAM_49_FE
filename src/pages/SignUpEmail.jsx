@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import progressBarImage from '../images/progressBar1.svg';
+import progressBarImage from '../images/progressBar1.png';
+import backButtonImage from '../images/backButton.png'; 
 
 const SignUpEmail = () => {
     const navigate = useNavigate();
@@ -19,7 +20,8 @@ const SignUpEmail = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/login')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/login')} />
+                <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
             <Container>
                 <Title>학교 인증</Title>
@@ -47,12 +49,10 @@ const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0 16px;
     position: relative;
-    background: url(${progressBarImage}) no-repeat center bottom;
-    background-size: 100% 12px;
-    object-fit: cover;
 `;
 
 const Title = styled.h1`
@@ -66,11 +66,18 @@ const Subtitle = styled.h5`
 `;
 
 const BackButton = styled.button`
-    font-size: 24px;
-    background: none;
+    width: 48px;
+    height: 48px;
+    background: url(${backButtonImage}) no-repeat center center;
+    background-size: contain;
     border: none;
     cursor: pointer;
-    color: black;
+    margin-top: 10px; 
+`;
+
+const ProgressBar = styled.img`
+    width: 100%;
+    height: 12px;
 `;
 
 const Container = styled.div`

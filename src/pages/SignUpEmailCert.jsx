@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import progressBarImage from '../images/progressBar2.svg';
+import progressBarImage from '../images/progressBar2.png';
+import backButtonImage from '../images/backButton.png'; 
 
 const SignUpEmailCert = () => {
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ const SignUpEmailCert = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signup/email')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/signup/email')} />
+                <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
             <Container>
                 <Title>인증 코드 입력</Title>
@@ -33,11 +35,11 @@ const SignUpEmailCert = () => {
                     onChange={handleInputChange}
                 />
                 <InputButton
-                    type="button"
-                    value="다음  →"
                     onClick={() => isValid && navigate('/signup/site')}
                     isValid={isValid}
-                />
+                >
+                    다음  →
+                </InputButton>
             </Container>
         </>
     );
@@ -49,12 +51,10 @@ const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0 16px;
     position: relative;
-    background: url(${progressBarImage}) no-repeat center bottom;
-    background-size: 100% 12px;
-    object-fit: cover;
 `;
 
 const Title = styled.h1`
@@ -68,11 +68,18 @@ const Subtitle = styled.h5`
 `;
 
 const BackButton = styled.button`
-    font-size: 24px;
-    background: none;
+    width: 48px;
+    height: 48px;
+    background: url(${backButtonImage}) no-repeat center center;
+    background-size: contain;
     border: none;
     cursor: pointer;
-    color: black;
+    margin-top: 10px; 
+`;
+
+const ProgressBar = styled.img`
+    width: 100%;
+    height: 12px;
 `;
 
 const Container = styled.div`
@@ -98,7 +105,7 @@ const InputField = styled.input`
     transition: background-color 0.3s ease;
 `;
 
-const InputButton = styled.input`
+const InputButton = styled.button`
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
@@ -108,4 +115,5 @@ const InputButton = styled.input`
     border-radius: 16px;
     cursor: ${(props) => (props.isValid ? 'pointer' : 'not-allowed')};
     transition: background-color 0.3s ease;
+    display: inline-block;
 `;

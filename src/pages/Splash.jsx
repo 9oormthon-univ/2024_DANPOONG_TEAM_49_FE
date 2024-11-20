@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import titleLogo from '../images/titlelogo.png';
 import logoImage from '../images/splashlogo.png';
+import lineImage from '../images/logoline.png';
 
 const Splash = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigate('/login');
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [navigate]);
 
     return (
         <Container>
@@ -13,9 +22,12 @@ const Splash = () => {
                 <img src={titleLogo} alt="기숙상점" />
             </Title>
             <Subtitle1>다양한 공동구매를 진행해보세요!</Subtitle1>
-            <Subtitle2>오늘부터 기숙상점 ------- </Subtitle2>
+            <Subtitle2>
+                오늘부터 기숙상점
+                <img src={lineImage} alt="로고 라인" />
+            </Subtitle2>
             <Footer>Copyright 기숙상점. All rights reserved</Footer>
-            <LogoImage /> {}
+            <LogoImage />
         </Container>
     );
 };
@@ -29,6 +41,8 @@ const Container = styled.div`
     padding: 20px;
     position: relative;
     height: 100vh;
+    overflow: hidden;
+    animation: fadeIn 2s ease-out;
 `;
 
 const Title = styled.div`
@@ -48,6 +62,12 @@ const Subtitle2 = styled.h5`
     font-size: 16px;
     margin-top: 10px;
     color: #AF3400;
+    img {
+        width: 88px;
+        height: auto;
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
 `;
 
 const LogoImage = styled.div`
@@ -59,8 +79,9 @@ const LogoImage = styled.div`
     height: 1150px;
     background-image: url(${logoImage});
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
+    animation: fadeInBackground 3s ease-out, slideUp 3s ease-out;
 `;
 
 const Footer = styled.h5`
@@ -68,4 +89,15 @@ const Footer = styled.h5`
     margin-top: 670px;
     text-align: center;
     width: 100%;
+`;
+
+const fadeIn = `
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;

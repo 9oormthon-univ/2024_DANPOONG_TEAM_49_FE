@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import progressBarImage from '../images/progressBar5.svg';
+import progressBarImage from '../images/progressBar4.png';
 
 const SignUpSuccess = () => {
     const navigate = useNavigate();
@@ -9,7 +9,6 @@ const SignUpSuccess = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signup/site-confirm')}>&lt;</BackButton>
             </HeaderBar>
             <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
@@ -45,17 +44,9 @@ const Subtitle = styled.h5`
     margin-bottom: 40px;
 `;
 
-const BackButton = styled.button`
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: black;
-`;
-
 const ProgressBar = styled.img`
-    width: 100%; /* 화면 너비 전체 */
-    height: 12px; /* 고정된 높이 */
+    width: 402px;
+    height: 12px;
 `;
 
 const Container = styled.div`
