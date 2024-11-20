@@ -5,7 +5,7 @@ import progressBarImage from '../images/progressBar3.png';
 import loading1 from '../images/loadingBar1.png';
 import loading2 from '../images/loadingBar2.png';
 import loading3 from '../images/loadingBar3.png'; 
-import backButtonImage from '../images/backButton.png'; 
+import backButtonImage from '../images/backButton.png';
 
 const SignUpSite = () => {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar3.png';
 import mapImage from '../images/map.png';
-import backButtonImage from '../images/backButton.png'; 
+import backButtonImage from '../images/backButton.png';
 
 const SignUpSiteConfirm = () => {
     const navigate = useNavigate();

@@ -22,7 +22,7 @@ const Home = () => {
 
     const navigate=useNavigate();
     const goToMyPage=()=>{
-        navigate("/mypage")
+        navigate("/mypage/joined")
     }
     const goToWrite=()=>{
         console.log(searchValue);

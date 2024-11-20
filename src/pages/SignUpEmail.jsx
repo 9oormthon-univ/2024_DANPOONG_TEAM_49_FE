@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar1.png';
-import backButtonImage from '../images/backButton.png'; 
+import backButtonImage from '../images/backButton.png';
 
 const SignUpEmail = () => {
     const navigate = useNavigate();

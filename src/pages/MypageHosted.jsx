@@ -19,7 +19,7 @@ const MypageHosted = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/login')} />
+                <BackButton onClick={() => navigate('/')} />
                 <Title>마이페이지</Title>
             </HeaderBar>
             <Container>
