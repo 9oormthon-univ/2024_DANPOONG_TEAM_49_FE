@@ -15,7 +15,7 @@ const SignUpSiteConfirm = () => {
                 <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
             <Container>
-                <MapImage src={mapImage} alt="Map Image" /> {/* map 이미지를 Title 위에 추가 */}
+                <MapImage src={mapImage} alt="Map Image" /> {}
                 <Title>위치 인증</Title>
                 <Subtitle>해당 위치가 알맞은가요?</Subtitle>
                 <InputButton

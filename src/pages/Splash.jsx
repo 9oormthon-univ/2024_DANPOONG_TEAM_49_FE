@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import titleLogo from '../images/titlelogo.png';
 import logoImage from '../images/splashlogo.png';
@@ -11,7 +11,7 @@ const Splash = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('/login');
-        }, 3000);
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, [navigate]);
@@ -34,6 +34,15 @@ const Splash = () => {
 
 export default Splash;
 
+const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -42,7 +51,7 @@ const Container = styled.div`
     position: relative;
     height: 100vh;
     overflow: hidden;
-    animation: fadeIn 2s ease-out;
+    animation: ${fadeIn} 2s ease-out;
 `;
 
 const Title = styled.div`
@@ -89,15 +98,4 @@ const Footer = styled.h5`
     margin-top: 670px;
     text-align: center;
     width: 100%;
-`;
-
-const fadeIn = `
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
 `;
