@@ -8,7 +8,7 @@ const MypageHosted = () => {
     const navigate = useNavigate();
     const [selected, setSelected] = useState('hosted');
 
-    // 임시로 2개의 박스 데이터를 생성
+    // 임시로 4개의 박스 데이터를 생성
     const boxes = [
         { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
         { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
