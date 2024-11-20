@@ -56,7 +56,7 @@ const HeaderBar = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 32px;
+    font-size: 28px;
     margin-bottom: 15px;
 `;
 

@@ -9,16 +9,16 @@ const SignUpSuccess = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/login')}>&lt;</BackButton>
+                <BackButton onClick={() => navigate('/signup/site-confirm')}>&lt;</BackButton>
             </HeaderBar>
             <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
-                <h1>회원가입 완료</h1>
-                <h5>이제부터 공동구매해주세요</h5>
+                <Title>회원가입 완료</Title>
+                <Subtitle>이제부터 공동구매해주세요</Subtitle>
                 <InputButton
                     type="button"
                     value="다음  →"
-                    //onClick={gotoMain}
+                    onClick={() => navigate('/main')} // 메인 페이지로 이동
                 />
             </Container>
         </>
@@ -35,6 +35,16 @@ const HeaderBar = styled.div`
     position: relative;
 `;
 
+const Title = styled.h1`
+    font-size: 28px;
+    margin-bottom: 15px;
+`;
+
+const Subtitle = styled.h5`
+    font-size: 16px;
+    margin-bottom: 40px;
+`;
+
 const BackButton = styled.button`
     font-size: 24px;
     background: none;
@@ -47,7 +57,6 @@ const ProgressBar = styled.img`
     width: 100%; /* 화면 너비 전체 */
     height: 12px; /* 고정된 높이 */
 `;
-
 
 const Container = styled.div`
     padding: 20px;
@@ -66,6 +75,7 @@ const InputButton = styled.input`
     background-color: #AF3400;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 `;

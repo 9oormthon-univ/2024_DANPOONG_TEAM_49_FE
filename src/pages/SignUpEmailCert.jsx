@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar2.svg';
 
 const SignUpEmailCert = () => {
     const navigate = useNavigate();
+    const [code, setCode] = useState('');
+    const [isValid, setIsValid] = useState(false);
+
+    // 인증 코드 입력 처리
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setCode(value);
+
+        // 인증 코드 유효성 검사: 숫자 6자리
+        const codeRegex = /^\d{6}$/;
+        setIsValid(codeRegex.test(value));
+    };
 
     return (
         <>
@@ -12,13 +24,19 @@ const SignUpEmailCert = () => {
                 <BackButton onClick={() => navigate('/signup/email')}>&lt;</BackButton>
             </HeaderBar>
             <Container>
-                <tilte></tilte>
-                <h5>발송된 인증 코드를 입력해주세요</h5>
-                <InputField type="text" placeholder="학교 이메일 입력" />
+                <Title>인증 코드 입력</Title>
+                <Subtitle>발송된 인증 코드를 입력해주세요</Subtitle>
+                <InputField
+                    type="text"
+                    placeholder="인증 코드 입력"
+                    value={code}
+                    onChange={handleInputChange}
+                />
                 <InputButton
                     type="button"
                     value="다음  →"
-                    onClick={() => navigate('/signup/site')}
+                    onClick={() => isValid && navigate('/signup/site')}
+                    isValid={isValid}
                 />
             </Container>
         </>
@@ -37,6 +55,16 @@ const HeaderBar = styled.div`
     background: url(${progressBarImage}) no-repeat center bottom;
     background-size: 100% 12px;
     object-fit: cover;
+`;
+
+const Title = styled.h1`
+    font-size: 28px;
+    margin-bottom: 15px;
+`;
+
+const Subtitle = styled.h5`
+    font-size: 16px;
+    margin-bottom: 40px;
 `;
 
 const BackButton = styled.button`
@@ -58,21 +86,26 @@ const Container = styled.div`
 `;
 
 const InputField = styled.input`
-    margin-top: 10px;
-    padding: 10px;
-    width: 70%;
+    width: 314px;
+    height: 47px;
     font-size: 16px;
+    color: black;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-left: 12px;
+    transition: background-color 0.3s ease;
 `;
 
 const InputButton = styled.input`
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #AF3400;
+    background-color: ${(props) => (props.isValid ? '#AF3400' : '#C36E49')};
     color: white;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 16px;
+    cursor: ${(props) => (props.isValid ? 'pointer' : 'not-allowed')};
+    transition: background-color 0.3s ease;
 `;
