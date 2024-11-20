@@ -150,8 +150,6 @@ const Write = () => {
           </SubmitButton>
         </Container>
       </>
-    );
-  };
 
   export default Write;
   
