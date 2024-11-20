@@ -10,7 +10,7 @@ const SignUpSuccess = () => {
     return (
         <>
             <HeaderBar />
-            <ProgressBar src={progressBarImage} alt="Progress Bar" />
+                <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
                 <CheckMark />
                 <Title>회원가입 완료</Title>
@@ -51,7 +51,7 @@ const HeaderBar = styled.div`
 `;
 
 const ProgressBar = styled.img`
-    width: 402px;
+    width: 100%;
     height: 12px;
 `;
 

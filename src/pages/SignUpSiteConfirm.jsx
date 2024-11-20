@@ -11,11 +11,10 @@ const SignUpSiteConfirm = () => {
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/signup/site')} />
                 <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
             <Container>
-                <MapImage src={mapImage} alt="Map Image" /> {}
+                <MapImage src={mapImage} alt="Map Image" />
                 <Title>위치 인증</Title>
                 <Subtitle>해당 위치가 알맞은가요?</Subtitle>
                 <InputButton
@@ -33,11 +32,14 @@ export default SignUpSiteConfirm;
 const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 0 16px;
     position: relative;
+`;
+
+const ProgressBar = styled.img`
+    width: 100%;
+    height: 12px;
 `;
 
 const Title = styled.h1`
@@ -48,21 +50,6 @@ const Title = styled.h1`
 const Subtitle = styled.h5`
     font-size: 16px;
     margin-bottom: 40px;
-`;
-
-const BackButton = styled.button`
-    width: 48px;
-    height: 48px;
-    background: url(${backButtonImage}) no-repeat center center;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px; 
-`;
-
-const ProgressBar = styled.img`
-    width: 100%;
-    height: 12px;
 `;
 
 const Container = styled.div`
