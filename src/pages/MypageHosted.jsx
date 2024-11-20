@@ -13,6 +13,7 @@ const MypageHosted = () => {
         { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
         { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
         { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage },
+        { name: '삼다수 500ml', price: '449원', priceInfo: '개당 961원 절약', quantity: '40개 중 6개 남음', img: productImage }
     ];
 
     return (
@@ -145,6 +146,22 @@ const Box = styled.div`
     max-width: 600px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #f7f7f7;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #aaa;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #f7f7f7;
+    }
 `;
 
 const BoxImg = styled.img`
