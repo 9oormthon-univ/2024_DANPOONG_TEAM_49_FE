@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 const SellingItem = ({ auction }) => {
   const navigate = useNavigate();
-  const goToDoneDetail=()=>{
-    navigate(`/done/${auction.id}`);
+  const goToPost=()=>{
+    navigate(`/post/${auction.id}`);
   }
   return (
-    <AuctionItem onClick={goToDoneDetail}>
+    <AuctionItem onClick={goToPost}>
       <img src={auction.img[0]} alt={auction.title} className="auction-item-img" />
       <AuctionDetail>
         

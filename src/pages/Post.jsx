@@ -38,7 +38,9 @@ const Post = () => {
                     <button className="backBtn" onClick={goToHome}>
                         <img src="/assets/header_back.svg" alt="뒤로가기" />
                     </button>
-                    <span>공동구매 진행하기</span>
+                    <button className='commentBtn'>
+                        <img src='/assets/red_comment.svg' alt='채팅버튼'/>
+                    </button>
                 </div>
             </HeaderBar>
             <BigPhotoWrapper>
@@ -67,18 +69,20 @@ const Post = () => {
             <Container>
                 <ProductSection>
                 <div className="productRow">
+                    <span className='productName'>{product.title}</span>
                     <span className="productPrice">개당 {product.price}원</span>
-                    <span className="auction-item-remain">
-                        총 {product.total}개 중 <span className="highlight">{product.remain}</span>개 남음
-                    </span>
                 </div>
+                <span className="auction-item-remain">
+                    {product.total}개 중 <span className="highlight">{product.remain}</span>개 남음
+                </span>
                 <span className="platform">구매처: {product.platform}</span>
                 </ProductSection>
                 <PriceSection>
                     <QuantityControl>
-                        <button onClick={handleDecrease}>-</button>
+                        <span className='quantityLabel'>예약 수량 </span>
+                        <button onClick={handleDecrease} className='left'>-</button>
                         <span>{quantity}</span>
-                        <button onClick={handleIncrease}>+</button>
+                        <button onClick={handleIncrease} className='right'>+</button>
                     </QuantityControl>
                     <span className="totalPrice">
                         결제 금액: {product.price * quantity}원
@@ -118,20 +122,22 @@ const Container = styled.div`
     margin: 0;
 `;
 
-// 스타일 정의
 const HeaderBar = styled.div`
     width: 100%;
-    height: 40px;
+    height: 50px;
     display: flex;
-    align-items: center;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    justify-content:space-between;
 
     .HeadGroup {
+        width:100%;
         display: flex;
         align-items: center;
         margin-left: 10px;
+        padding : 0 20px;
         gap: 7px; /* 버튼과 span 사이 간격 */
+        justify-content:space-between;
     }
 
     button {
@@ -139,6 +145,16 @@ const HeaderBar = styled.div`
         background: none;
         border: none;
         cursor: pointer;
+        display:flex;
+        justify-content:center;
+        &.backBtn{
+            position:absolute;
+            left:20px;
+        }
+        &.commentBtn{
+            position:absolute;
+            right:20px;
+        }
     }
 
     span {
@@ -187,10 +203,13 @@ const BigPhotoWrapper = styled.div`
 
 const BigPhoto = styled.img`
     width: 100%;
-    max-width: 350px;
-    height: auto;
+    min-width: 350px;
+    height: 100%;
+    min-height:350px;
     display: block;
-    margin: 0 auto;
+    box-sizing:border-box;
+    object-fit:cover;
+    
 `;
 
 const ProductSection = styled.div`
@@ -201,16 +220,19 @@ const ProductSection = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px; /* 요소 간 간격 설정 */
+    position:relative;
 
     .productName {
         font-size: 18px;
         font-weight: bold;
+        margin-bottom:12px;
     }
 
     .productRow {
         display: flex;
+        flex-direction:column;
         justify-content: space-between;
-        align-items: center;
+        align-items: left;
     }
 
     .productPrice {
@@ -224,9 +246,12 @@ const ProductSection = styled.div`
         align-items: center;
         justify-content: center;
         width: auto;
+        position: absolute;
+        right:20px;
+        max-width:120px;
         padding: 0 8px; /* 좌우 패딩 */
         height: 20px;
-        border: 0.3px solid black;
+        border: 0.3px solid #333333;
         font-size: 13px;
         font-family: "Pretendard", sans-serif;
         border-radius: 10px;
@@ -267,18 +292,28 @@ const QuantityControl = styled.div`
     button {
         width: 24px;
         height: 24px;
-        border: 1px solid #ccc;
+        /* border: 1px solid #ccc; */
         background-color: #fff;
         cursor: pointer;
         text-align: center;
         line-height: 24px;
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 28px;
+
+        &.left{
+            margin-right:20px;
+        }
+        &.right{
+            margin-left:20px;
+        }
     }
 
     span {
         font-size: 16px;
         font-weight: bold;
+    }
+
+    .quantityLabel{
+        margin-right:20px;
     }
 `;
 

@@ -32,7 +32,7 @@ function App() {
         <Route path='*' element={<NotFound/>} />
         <Route path='/' element={<Splash/>} />
         <Route path='/write' element={<Write/>} />
-        <Route path='/post' element={<Post/>} />
+        <Route path='/post/:id' element={<Post/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup/email' element={<SignUpEmail/>} />
         <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
