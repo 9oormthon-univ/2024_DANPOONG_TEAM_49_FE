@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import progressBarImage from "../images/progressBar3.png";
 import backButtonImage from "../images/backButton.png";
+import { getSchool } from "../api/getSchool";
 
 const SignUpSiteConfirm = () => {
   const navigate = useNavigate();
@@ -10,7 +11,8 @@ const SignUpSiteConfirm = () => {
   useEffect(() => {
     // 카카오 지도 스크립트 로드
     const script = document.createElement("script");
-    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=4b1593cd10be7af1b435d6974e7be1e2&autoload=false";
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=4b1593cd10be7af1b435d6974e7be1e2&autoload=false";
     script.async = true;
 
     script.onload = () => {
@@ -37,16 +39,29 @@ const SignUpSiteConfirm = () => {
         });
 
         // 마커 드래그 이벤트
-        window.kakao.maps.event.addListener(marker, "dragend", () => {
-          const position = marker.getPosition(); // 드래그 후 위치
-          console.log("새 위치:", position.getLat(), position.getLng());
+        window.kakao.maps.event.addListener(marker, "dragend", async () => {
+          const position = marker.getPosition();
+          const latitude = position.getLat();
+          const longitude = position.getLng();
+          console.log("새 위치:", latitude, longitude);
+
+          try {
+            // 서버에 좌표를 전송하고 학교 정보 요청
+            const data = await getSchool(latitude, longitude);
+            alert(`학교 정보: ${data.school}`);
+          } catch (error) {
+            if (error.response?.data?.code === "SCHOOL_NOT_FOUND") {
+              alert("위치를 다시 설정하세요!");
+            } else {
+              alert("요청에 실패했습니다. 다시 시도하세요!");
+            }
+          }
         });
       });
     };
 
     document.body.appendChild(script);
 
-    // 컴포넌트가 언마운트될 때 스크립트 제거
     return () => {
       document.body.removeChild(script);
     };
@@ -62,7 +77,11 @@ const SignUpSiteConfirm = () => {
         <Map id="map"></Map>
         <Title>위치 인증</Title>
         <Subtitle>해당 위치가 알맞은가요?</Subtitle>
-        <InputButton type="button" value="다음  →" onClick={() => navigate("/signup/success")} />
+        <InputButton
+          type="button"
+          value="다음  →"
+          onClick={() => navigate("/signup/success")}
+        />
       </Container>
     </>
   );
