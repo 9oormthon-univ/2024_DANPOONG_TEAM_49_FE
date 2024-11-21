@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getComment } from "../api/getComment";
 
 
 const Comment = () => {
+  const [comment,setComment]=useState([]);
   const mockData = [
     { id: 1, author: "홍길동 (주최자)", content: "안녕하세요. 저희 2개만 더 예약받고 진행할게요.", timestamp: "11.13 03:23", isMine: false },
     { id: 2, author: "김OO (참가자)", content: "넵 알겠습니다~!!", timestamp: "11.13 05:12", isMine: false },
     { id: 3, author: "이OO (참가자)", content: "넵 좋습니다~~", timestamp: "11.13 03:23", isMine: false },
   ];
+
+  useEffect(()=>{
+    setComment(getComment(1));
+    console.log("가져온 댓글 데이터 :", comment);
+  },[]);
 
 
   const [comments, setComments] = useState(mockData);
