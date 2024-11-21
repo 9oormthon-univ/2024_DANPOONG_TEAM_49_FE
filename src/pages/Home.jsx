@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import mockPostData from '../components/mockPostData';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,31 +9,67 @@ import "swiper/css/navigation";
 import { useNavigate } from 'react-router-dom';
 
 
-const Home = () => {
+// 학교 이름을 가져오는 함수
+export const getSchool = async (latitude, longitude) => {
+    try {
+      const response = await axios.get(
+        `http://54.180.75.157:8080/schools`, 
+        {
+          params: { latitude, longitude },
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error('학교 데이터를 가져오는 중 에러가 발생했습니다:', error);
+      throw error;
+    }
+  };
+  
+  const Home = () => {
     const [searchValue, setSearchValue] = useState("");
-    const school="가톨릭대학교";
-    const mockSwiper=[{
-        id:1,
-        img: [
-            "/assets/post/1.png",
-            "/assets/post/2.png",
-            "/assets/post/3.png",
-        ],
-    }]
+    const [school, setSchool] = useState("");  // 학교 이름을 저장할 상태
+    const mockSwiper = [{
+      id: 1,
+      img: [
+        "/assets/post/1.png",
+        "/assets/post/2.png",
+        "/assets/post/3.png",
+      ],
+    }];
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      const fetchSchool = async () => {
+        try {
+          // 실제 위도와 경도 값으로 교체 -> 실제 위도 경도를 받아오는 부분에 대해서..
+          const latitude = 37.5665; // 예시 위도 (서울)
+          const longitude = 126.978; // 예시 경도 (서울)
+          
+          const schoolData = await getSchool(latitude, longitude);
+          setSchool(schoolData.name);  // API 응답에서 학교 이름을 가져와 상태에 저장
+        } catch (error) {
+          console.error("학교 데이터를 가져오는 데 실패했습니다:", error);
+        }
+      };
+  
+      fetchSchool();
+    }, []);
+  
+    const goToMyPage = () => {
+      navigate("/mypage/joined");
+    };
+  
+    const goToWrite = () => {
+      console.log(searchValue);
+      navigate("/write");
+    };
 
-    const navigate=useNavigate();
-    const goToMyPage=()=>{
-        navigate("/mypage/joined")
-    }
-    const goToWrite=()=>{
-        console.log(searchValue);
-        navigate("/write")
-    }
     return (
         <>
             <Container>
                 <div className='topBar'>
-                    <label className='mainTitle'>{school} 기숙사</label>
+                    <label className='mainTitle'>{school}</label>
                     <img src='/assets/myPage.svg' onClick={goToMyPage} alt='마이페이지 버튼'/>
                 </div>
                 <InputGroup>
