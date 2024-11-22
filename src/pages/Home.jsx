@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import {Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
+import { getRecentProduct } from '../api/getRecentProduct';
 
 
 // 학교 이름을 가져오는 함수
@@ -31,6 +32,7 @@ export const getSchool = async (latitude, longitude) => {
 
 const Home = () => {
   const [school, setSchool] = useState(""); // school 상태 초기화
+  const [recent, setRecent] = useState([]); // school 상태 초기화
   const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
   const navigate = useNavigate();
 
@@ -70,6 +72,21 @@ const Home = () => {
         }
       };
       fetchSchool();
+    }
+    //recent
+    const storedRecent = localStorage.getItem("recent")
+    if (storedRecent) {
+      setSchool(storedRecent);
+    } else {
+      const fetchRecent = async () => {
+        try {
+          const schoolData = await getRecentProduct();
+          setRecent(schoolData);
+        } catch (error) {
+          console.error("학교 데이터를 가져오는 데 실패했습니다:", error);
+        }
+      };
+      fetchRecent();
     }
   }, []);
 
