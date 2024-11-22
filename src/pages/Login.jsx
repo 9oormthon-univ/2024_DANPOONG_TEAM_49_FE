@@ -4,27 +4,52 @@ import { useNavigate } from 'react-router-dom';
 import kakaoImage from '../images/kakao.png';
 
 const Login = () => {
-    // navigate
     const navigate = useNavigate();
-    const goToMain = () => {
-        navigate("/");
+
+    // 카카오 로그인 API 호출
+    const handleKakaoLogin = () => {
+        // 카카오 SDK 초기화 (발급받은 JavaScript 키 사용)
+        if (window.Kakao) {
+            window.Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY');  // 발급받은 JavaScript 키 넣기
+
+            // 카카오 로그인
+            window.Kakao.Auth.login({
+                success: (authObj) => {
+                    // 로그인 성공 시 사용자 정보 받아오기
+                    window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: (res) => {
+                            console.log(res);  // 로그인한 사용자 정보
+                            navigate('/home');  // 로그인 후 홈으로 이동
+                        },
+                        fail: (error) => {
+                            console.error(error);
+                        }
+                    });
+                },
+                fail: (err) => {
+                    console.error(err);
+                }
+            });
+        } else {
+            console.log("카카오 SDK 로딩 실패");
+        }
     };
 
     return (
-        <>
-            <Container>
-                <Title>기숙상점</Title>
-                <ButtonWrapper>
-                    <SignupButton onClick={goToMain}>
-                        3초 바로 회원가입 ⚡
-                    </SignupButton>
-                    <KakaoButton
-                        src={kakaoImage}
-                        alt="카카오 로그인"
-                    />
-                </ButtonWrapper>
-            </Container>
-        </>
+        <Container>
+            <Title>기숙상점</Title>
+            <ButtonWrapper>
+                <SignupButton>
+                    3초 바로 회원가입 ⚡
+                </SignupButton>
+                <KakaoButton
+                    src={kakaoImage}
+                    alt="카카오 로그인"
+                    onClick={handleKakaoLogin}  // 로그인 버튼 클릭 시 카카오 로그인 호출
+                />
+            </ButtonWrapper>
+        </Container>
     );
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar2.png';
-import backButtonImage from '../images/backButton.png'; 
+import backButtonImage from '../images/backButton.png';
 
 const SignUpEmailCert = () => {
     const navigate = useNavigate();
@@ -23,8 +23,8 @@ const SignUpEmailCert = () => {
         <>
             <HeaderBar>
                 <BackButton onClick={() => navigate('/signup/email')} />
-                <ProgressBar src={progressBarImage} alt="Progress Bar" />
             </HeaderBar>
+            <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
                 <Title>인증 코드 입력</Title>
                 <Subtitle>발송된 인증 코드를 입력해주세요</Subtitle>
@@ -51,10 +51,24 @@ const HeaderBar = styled.div`
     width: 100%;
     height: 56px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 0 16px;
     position: relative;
+`;
+
+const BackButton = styled.button`
+    width: 48px;
+    height: 48px;
+    background: url(${backButtonImage}) no-repeat center center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    margin: 1px 1px 1px;
+`;
+
+const ProgressBar = styled.img`
+    width: 100%;
+    height: 12px;
 `;
 
 const Title = styled.h1`
@@ -65,21 +79,6 @@ const Title = styled.h1`
 const Subtitle = styled.h5`
     font-size: 16px;
     margin-bottom: 40px;
-`;
-
-const BackButton = styled.button`
-    width: 48px;
-    height: 48px;
-    background: url(${backButtonImage}) no-repeat center center;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px; 
-`;
-
-const ProgressBar = styled.img`
-    width: 100%;
-    height: 12px;
 `;
 
 const Container = styled.div`

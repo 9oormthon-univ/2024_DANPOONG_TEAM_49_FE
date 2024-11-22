@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import mockPostData from '../components/mockPostData';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
+import mockPostData from "../components/mockPostData";
 
+
+// 학교 이름을 가져오는 함수
+export const getSchool = async (latitude, longitude) => {
+  try {
+    console.log(`요청 좌표: ${latitude}, ${longitude}`);
+    const response = await axios.get(
+      `http://54.180.75.157:8080/schools`,
+      {
+        params: { latitude, longitude },
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    console.log("응답 데이터:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('학교 데이터를 가져오는 중 에러가 발생했습니다:', error);
+    throw error;
+  }
+};
 
 const Home = () => {
-    const [searchValue, setSearchValue] = useState("");
-    const school="가톨릭대학교";
-    const mockSwiper=[{
-        id:1,
-        img: [
-            "/assets/post/1.png",
-            "/assets/post/2.png",
-            "/assets/post/3.png",
-        ],
-    }]
+  const [school, setSchool] = useState(""); // school 상태 초기화
+  const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
+  const navigate = useNavigate();
+
 
     const navigate=useNavigate();
     const goToMyPage=()=>{
@@ -35,11 +49,50 @@ const Home = () => {
     const goToPost=(id)=>{
         navigate(`/post/${id}`)
     }
+
+  const mockSwiper = [{
+    id: 1,
+    img: [
+      "/assets/post/1.png",
+      "/assets/post/2.png",
+      "/assets/post/3.png",
+    ],
+  }];
+
+  useEffect(() => {
+    const storedSchool = localStorage.getItem("school");
+    if (storedSchool) {
+      setSchool(storedSchool);
+    } else {
+      const fetchSchool = async () => {
+        try {
+          const latitude = 37.5665; // 예시 위도
+          const longitude = 126.978; // 예시 경도
+          const schoolData = await getSchool(latitude, longitude);
+          setSchool(schoolData.name || "학교 이름 없음");
+        } catch (error) {
+          console.error("학교 데이터를 가져오는 데 실패했습니다:", error);
+        }
+      };
+      fetchSchool();
+    }
+  }, []);
+
+  const goToMyPage = () => {
+    navigate("/mypage/joined");
+  };
+
+  const goToWrite = () => {
+    console.log(searchValue);
+    navigate("/write");
+  };
+
+
     return (
         <>
             <Container>
                 <div className='topBar'>
-                    <label className='mainTitle'>{school} 기숙사</label>
+                    <label className='mainTitle'>{school}</label>
                     <img src='/assets/myPage.svg' onClick={goToMyPage} alt='마이페이지 버튼'/>
                 </div>
                 <InputGroup>

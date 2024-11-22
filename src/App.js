@@ -24,6 +24,21 @@ function App() {
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
+        <Route path='*' element={<NotFound/>} />
+        <Route path='/' element={<Splash/>} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/success' element={<Success/>} />
+        <Route path='/search' element={<Search/>} />
+        <Route path='/write' element={<Write/>} />
+        <Route path='/post/:id' element={<Post/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/signup/email' element={<SignUpEmail/>} />
+        <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
+        <Route path='/signup/success' element={<SignUpSuccess/>} />
+        <Route path='/signup/site' element={<SignUpSite/>} />
+        <Route path='/signup/site-confirm' element={<SignUpSiteConfirm/>} />
+        <Route path='/mypage/joined' element={<MypageJoined/>} />
+        <Route path='/mypage/hosted' element={<MypageHosted/>} />
           <Route path='*' element={<NotFound/>} />
           <Route path='/' element={<Home />} />
           <Route path='/success' element={<Success/>} />

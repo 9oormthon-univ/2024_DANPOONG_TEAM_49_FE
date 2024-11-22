@@ -14,7 +14,7 @@ const Write = () => {
   
     const navigate = useNavigate();
     const goToHome = () => {
-      navigate("/");
+      navigate("/home");
     };
   
     const isFormComplete = () => {
@@ -150,9 +150,11 @@ const Write = () => {
           </SubmitButton>
         </Container>
       </>
-    )
-  } 
-    export default Write;
+ );
+};
+
+  export default Write;
+
   
   export const Container = styled.div`
     width: 100%;
