@@ -38,17 +38,19 @@ const SignUpSiteConfirm = () => {
           map: map, // 마커를 표시할 지도
         });
 
-        // 마커 드래그 이벤트
         window.kakao.maps.event.addListener(marker, "dragend", async () => {
           const position = marker.getPosition();
           const latitude = position.getLat();
           const longitude = position.getLng();
           console.log("새 위치:", latitude, longitude);
-
+        
           try {
             // 서버에 좌표를 전송하고 학교 정보 요청
             const data = await getSchool(latitude, longitude);
             alert(`학교 정보: ${data.school}`);
+        
+            // 학교 정보를 로컬 저장소에 저장
+            localStorage.setItem("school", data.school);
           } catch (error) {
             if (error.response?.data?.code === "SCHOOL_NOT_FOUND") {
               alert("위치를 다시 설정하세요!");
@@ -56,7 +58,7 @@ const SignUpSiteConfirm = () => {
               alert("요청에 실패했습니다. 다시 시도하세요!");
             }
           }
-        });
+        });         
       });
     };
 
