@@ -34,19 +34,14 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
   const navigate = useNavigate();
 
-
-    const navigate=useNavigate();
-    const goToMyPage=()=>{
-        navigate("/mypage")
-    }
-    const goToWrite=()=>{
-        navigate("/write")
-    }
-    const goToSearch=()=>{
+  const goToMyPage = () => {
+    navigate("/mypage/joined");
+  };
+  const goToSearch=()=>{
         console.log(searchValue);
         navigate("/search")
     }
-    const goToPost=(id)=>{
+  const goToPost=(id)=>{
         navigate(`/post/${id}`)
     }
 
@@ -77,10 +72,6 @@ const Home = () => {
       fetchSchool();
     }
   }, []);
-
-  const goToMyPage = () => {
-    navigate("/mypage/joined");
-  };
 
   const goToWrite = () => {
     console.log(searchValue);
