@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
+import {Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
 
@@ -31,6 +33,22 @@ const Home = () => {
   const [school, setSchool] = useState(""); // school 상태 초기화
   const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
   const navigate = useNavigate();
+
+
+    const navigate=useNavigate();
+    const goToMyPage=()=>{
+        navigate("/mypage")
+    }
+    const goToWrite=()=>{
+        navigate("/write")
+    }
+    const goToSearch=()=>{
+        console.log(searchValue);
+        navigate("/search")
+    }
+    const goToPost=(id)=>{
+        navigate(`/post/${id}`)
+    }
 
   const mockSwiper = [{
     id: 1,
@@ -69,6 +87,7 @@ const Home = () => {
     navigate("/write");
   };
 
+
     return (
         <>
             <Container>
@@ -92,19 +111,17 @@ const Home = () => {
                     src="/assets/search_icon.svg"
                     alt="search"
                     className="search-icon"
+                    onClick={goToSearch}
                     />
                 </InputGroup>
+            </Container>
                 <BigPhotoWrapper>
                     <Swiper
                         spaceBetween={10}
                         slidesPerView={2}
                         loop={true}
-                        pagination={{
-                            clickable: true,
-                            renderBullet: (index, className) => `
-                                <span class="${className}"></span>
-                            `,
-                        }}
+                        pagination={true}
+                        modules={[Pagination]}
                     >
                         {mockSwiper[0].img.map((image, index) => (
                         <SwiperSlide key={index}>
@@ -113,15 +130,16 @@ const Home = () => {
                     ))}
                     </Swiper>
                 </BigPhotoWrapper>
+            <Container>
                 <label className='mainTitle'>진행중인 공동구매 <img src='/assets/header_front.svg' alt='arrow'/></label>
                 <ProductGrid>
                     {mockPostData.map((product,index)=>(
-                        <ProductCard key={index}>
+                        <ProductCard key={index} onClick={goToPost(index)}>
                             <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`}/>
                             <ProductInfo>
                                 <div className='product-name'>{product.title}</div>
                                 <div className='product-price'>
-                                    <span>1개당</span>
+                                    <span>1개당 </span>
                                     <span className='price'>{product.price}원</span>
                                 </div>
                                 <div className='participant'>참여 인원 : {product.total - product.remain}/{product.total}</div>
@@ -132,12 +150,12 @@ const Home = () => {
                 <label className='mainTitle'>공동구매 <img src='/assets/header_front.svg' alt='arrow'/></label>
                 <ProductGrid>
                     {mockPostData.map((product,index)=>(
-                        <ProductCard key={index}>
+                        <ProductCard key={index} >
                             <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`}/>
                             <ProductInfo>
                                 <div className='product-name'>{product.title}</div>
                                 <div className='product-price'>
-                                    <span>1개당</span>
+                                    <span>1개당 </span>
                                     <span className='price'>{product.price}원</span>
                                 </div>
                                 <div className='participant'>참여 인원 : {product.total - product.remain}/{product.total}</div>
@@ -147,7 +165,7 @@ const Home = () => {
                 </ProductGrid>
                 <WriteButton onClick={goToWrite}>
                     <img src='/assets/writePencil.svg' alt='글쓰기 아이콘'/>
-                     <span>글쓰기</span>
+                    <span>글쓰기</span>
                 </WriteButton>
             </Container>
         </>
@@ -159,22 +177,22 @@ export default Home;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 24px 20px 30px;
-  font-family: "Pretendard", sans-serif;
+  padding: 24px 20px 0px;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   .topBar{
     width:100%;
     display:flex;
     justify-content:space-between;
-    .mainTitle{
-        font-size:20px;
-        font-weight:500;
-        margin-bottom:20px;
-    }
     img{
         margin-bottom:16px;
     }
   }
+  .mainTitle{
+        font-size:20px;
+        font-weight:500;
+        margin-bottom:20px;
+    }
 `;
 
 const InputGroup = styled.div`
@@ -227,7 +245,7 @@ const BigPhotoWrapper = styled.div`
         z-index: 10;
         display: flex;
         justify-content: center;
-        gap: 8px; /* 도트 사이 간격 */
+        gap: 6px; /* 도트 사이 간격 */
     }
 
     .swiper-pagination-bullet {
@@ -237,6 +255,7 @@ const BigPhotoWrapper = styled.div`
         border-radius: 50%;
         margin: 0 4px;
         opacity: 1;
+        border:1px solid black;
     }
 
     .swiper-pagination-bullet-active {
@@ -262,9 +281,10 @@ const BigPhoto = styled.img`
 `;
 
 const ProductGrid = styled.div`
+    width:100%;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:auto; //padding 고려 꽉채우게 얘가 가변적이어야함.
+    gap:30px; //padding 고려 꽉채우게 얘가 가변적이어야함.
     margin-bottom:20px;
 `
 
@@ -293,7 +313,7 @@ const ProductInfo = styled.div`
         font-size:12px;
         font-weight:700;
         color:var(--color-main);
-        margin-bottom:6px;
+        margin-bottom:4px;
     }
     .participant{
         font-size:8px;
@@ -308,8 +328,13 @@ const WriteButton = styled.button`
     background-color:var(--color-main);
     color:white;
     position:fixed;
+    display:flex;
+    justify-content:center;
     bottom:10px;
     right:10px;
     border-radius:30px;
     line-height:1.2;
+    img{
+        margin-right:4px;
+    }
 `

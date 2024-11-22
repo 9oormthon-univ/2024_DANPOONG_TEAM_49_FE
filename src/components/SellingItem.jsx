@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 const SellingItem = ({ auction }) => {
   const navigate = useNavigate();
-  const goToDoneDetail=()=>{
-    navigate(`/done/${auction.id}`);
+  const goToPost=()=>{
+    navigate(`/post/${auction.id}`);
   }
   return (
-    <AuctionItem onClick={goToDoneDetail}>
+    <AuctionItem onClick={goToPost}>
       <img src={auction.img[0]} alt={auction.title} className="auction-item-img" />
       <AuctionDetail>
         
@@ -63,7 +63,7 @@ const AuctionDetail=styled.div`
 
   .auction-item-title {
   font-size: 16px;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
   line-height:1.2;
   height:28px;
@@ -84,7 +84,7 @@ const AuctionInfo=styled.div`
     height: 20px;
     border: 0.3px solid black;
     font-size: 13px;
-    font-family: "Pretendard", sans-serif;
+    font-family: "Roboto", sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +96,7 @@ const AuctionInfo=styled.div`
 
 .auction-item-save {
   font-size: 12px;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   .highlight{
     font-weight:700;
@@ -106,7 +106,7 @@ const AuctionInfo=styled.div`
 .auction-item-price {
   font-size: 20px;
   color:var(--color-main);
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 700;
   margin:0;
 }

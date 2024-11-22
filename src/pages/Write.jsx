@@ -154,6 +154,7 @@ const Write = () => {
 };
 
   export default Write;
+
   
   export const Container = styled.div`
     width: 100%;
@@ -178,6 +179,8 @@ const Write = () => {
 
   button {
     font-size: 48px; /* 버튼의 폰트 크기 */
+    display:flex;
+    justify-content:center;
     background: none;
     border: none;
     cursor: pointer;
