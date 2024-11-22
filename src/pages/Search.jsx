@@ -89,7 +89,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 24px 20px 30px;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 `;
 

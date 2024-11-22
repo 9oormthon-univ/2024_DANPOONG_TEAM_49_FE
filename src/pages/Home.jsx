@@ -125,7 +125,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px 20px 0px;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
   .topBar{
     width:100%;

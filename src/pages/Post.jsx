@@ -253,7 +253,7 @@ const ProductSection = styled.div`
         height: 20px;
         border: 0.3px solid #333333;
         font-size: 13px;
-        font-family: "Pretendard", sans-serif;
+        font-family: "Roboto", sans-serif;
         border-radius: 10px;
         gap: 4px; /* 텍스트와 강조 부분 사이 간격 */
 

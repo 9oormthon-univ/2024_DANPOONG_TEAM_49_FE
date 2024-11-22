@@ -101,7 +101,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 20px 30px;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 `;
 

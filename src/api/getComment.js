@@ -12,7 +12,7 @@ export const getComment = async (productId) => {
 );
     console.log('getComment 성공');
     console.log(response);
-    return response.data;
+    return response.data.comments;
   } catch (error) {
     console.error(error);
   }
