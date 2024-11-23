@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import {Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
+import { getRecentProduct } from '../api/getRecentProduct';
 
 
 // 학교 이름을 가져오는 함수
@@ -31,22 +32,18 @@ export const getSchool = async (latitude, longitude) => {
 
 const Home = () => {
   const [school, setSchool] = useState(""); // school 상태 초기화
+  const [recent, setRecent] = useState([]); // school 상태 초기화
   const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
   const navigate = useNavigate();
 
-
-    const navigate=useNavigate();
-    const goToMyPage=()=>{
-        navigate("/mypage")
-    }
-    const goToWrite=()=>{
-        navigate("/write")
-    }
-    const goToSearch=()=>{
+  const goToMyPage = () => {
+    navigate("/mypage/joined");
+  };
+  const goToSearch=()=>{
         console.log(searchValue);
         navigate("/search")
     }
-    const goToPost=(id)=>{
+  const goToPost=(id)=>{
         navigate(`/post/${id}`)
     }
 
@@ -76,11 +73,22 @@ const Home = () => {
       };
       fetchSchool();
     }
+    //recent
+    const storedRecent = localStorage.getItem("recent")
+    if (storedRecent) {
+      setSchool(storedRecent);
+    } else {
+      const fetchRecent = async () => {
+        try {
+          const schoolData = await getRecentProduct();
+          setRecent(schoolData);
+        } catch (error) {
+          console.error("학교 데이터를 가져오는 데 실패했습니다:", error);
+        }
+      };
+      fetchRecent();
+    }
   }, []);
-
-  const goToMyPage = () => {
-    navigate("/mypage/joined");
-  };
 
   const goToWrite = () => {
     console.log(searchValue);
@@ -134,7 +142,7 @@ const Home = () => {
                 <label className='mainTitle'>진행중인 공동구매 <img src='/assets/header_front.svg' alt='arrow'/></label>
                 <ProductGrid>
                     {mockPostData.map((product,index)=>(
-                        <ProductCard key={index} onClick={goToPost(index)}>
+                        <ProductCard key={index} onClick={() => goToPost(product.id)}>
                             <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`}/>
                             <ProductInfo>
                                 <div className='product-name'>{product.title}</div>

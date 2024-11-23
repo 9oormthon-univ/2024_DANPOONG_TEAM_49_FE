@@ -27,6 +27,10 @@ const Post = () => {
         navigate('/');
     };
 
+    const goToComment = (id) => {
+        navigate(`/comment/${id}`); 
+    };
+
     if (!product) {
         return <div>상품 정보를 찾을 수 없습니다.</div>;
     }
@@ -38,8 +42,8 @@ const Post = () => {
                     <button className="backBtn" onClick={goToHome}>
                         <img src="/assets/header_back.svg" alt="뒤로가기" />
                     </button>
-                    <button className='commentBtn'>
-                        <img src='/assets/red_comment.svg' alt='채팅버튼'/>
+                    <button className='commentBtn' onClick={() => goToComment(id)}>
+                        <img src='/assets/red_comment.svg' alt='댓글버튼'/>
                     </button>
                 </div>
             </HeaderBar>

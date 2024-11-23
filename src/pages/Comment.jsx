@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getComment } from "../api/getComment";
 
 
 const Comment = () => {
+  const { id } = useParams();
   const [comment,setComment]=useState([]);
+  // const [comments, setComments] = useState(mockData);
+  const [inputValue, setInputValue] = useState("");
+
   const mockData = [
     { id: 1, author: "홍길동 (주최자)", content: "안녕하세요. 저희 2개만 더 예약받고 진행할게요.", timestamp: "11.13 03:23", isMine: false },
     { id: 2, author: "김OO (참가자)", content: "넵 알겠습니다~!!", timestamp: "11.13 05:12", isMine: false },
     { id: 3, author: "이OO (참가자)", content: "넵 좋습니다~~", timestamp: "11.13 03:23", isMine: false },
   ];
 
-  useEffect(()=>{
-    setComment(getComment(1));
-    console.log("가져온 댓글 데이터 :", comment);
-  },[]);
-
-
-  const [comments, setComments] = useState(mockData);
-  const [inputValue, setInputValue] = useState("");
-
+  useEffect(() => {
+    const fetchComments = async () => {
+      const data = await getComment(id);
+      if (data) {
+        const formattedData = data.map((item) => ({
+          id: item.comment_id, // comment_id -> id
+          author: item.username, // username -> author
+          content: item.content, // 그대로
+          timestamp: new Date(item.createdAt).toLocaleString("ko-KR", {
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          }), // createdAt -> timestamp
+          isMine: false, // API 데이터는 기본적으로 내 댓글이 아님
+        }));
+        setComment(formattedData); // 변환된 데이터 설정
+      }
+    };
+    fetchComments();
+  }, [id]);
+  
+  useEffect(() => {
+  console.log("댓글 상태가 업데이트되었습니다:", comment);
+  }, [comment]);
 
   const navigate = useNavigate();
   const goToHome = () => {
@@ -36,7 +56,7 @@ const Comment = () => {
   const handleSend = () => {
     if (!inputValue.trim()) return; // 빈 입력 방지
     const newComment = {
-      id: comments.length + 1,
+      id: comment.length + 1,
       author: "나",
       content: inputValue,
       timestamp: new Date().toLocaleString("ko-KR", {
@@ -47,9 +67,10 @@ const Comment = () => {
       }),
       isMine: true, // 내가 보낸 메시지
     };
-    setComments([...comments, newComment]);
-    setInputValue("");
+    setComment([...comment, newComment]); // 새 댓글 추가
+    setInputValue(""); // 입력 초기화
   };
+  
 
 
   return (
@@ -64,7 +85,7 @@ const Comment = () => {
       </HeaderBar>
       <Container>
         <CommentList>
-          {comments.map((comment) => (
+          {comment.map((comment) => (
             <CommentBubble key={comment.id} isMine={comment.isMine}>
               {/* 프로필 이미지 */}
               {!comment.isMine && <img src="/assets/empty_profile.svg" alt="빈 프로필" />}
