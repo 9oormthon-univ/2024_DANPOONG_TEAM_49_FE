@@ -1,7 +1,7 @@
 import axios from 'axios';
-export const getComment = async (productId) => {
+export const getRecentProduct = async () => {
   try {
-    const response = await axios.get(`http://54.180.75.157:8080/comments/${productId}`, 
+    const response = await axios.get(`http://54.180.75.157:8080/products/recent`, 
         // body, 
         {
             headers: {
@@ -10,8 +10,8 @@ export const getComment = async (productId) => {
             },
         }
 );
-    console.log('getComment 성공');
-    console.log(response.data.comments);
+    console.log('getRecentProduct 성공');
+    console.log(response.data);
     return response.data.comments;
   } catch (error) {
     console.error(error);
