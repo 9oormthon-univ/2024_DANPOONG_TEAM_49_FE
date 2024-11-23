@@ -284,7 +284,7 @@ const PriceSection = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    font-size: 16px;
+    font-size: 14px;
 
     .totalPrice {
         font-weight: bold;
@@ -309,10 +309,10 @@ const QuantityControl = styled.div`
         font-size: 28px;
 
         &.left{
-            margin-right:20px;
+            margin-right:10px;
         }
         &.right{
-            margin-left:20px;
+            margin-left:10px;
         }
     }
 
@@ -322,7 +322,7 @@ const QuantityControl = styled.div`
     }
 
     .quantityLabel{
-        margin-right:20px;
+        margin-right:10px;
     }
 `;
 

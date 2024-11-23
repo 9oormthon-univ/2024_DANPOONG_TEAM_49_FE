@@ -70,11 +70,6 @@ const Home = () => {
     navigate(`/post/${id}`);
   };
 
-  useEffect(()=>{
-    const accessToken = Cookies.get('accessToken');
-    console.log("accessToken :", accessToken);
-  },[])
-
   useEffect(() => {
     if (!userInfo) {
       console.log('사용자 정보 없음');
@@ -85,35 +80,40 @@ const Home = () => {
     const storedSchool = localStorage.getItem('school');
     const storedProducts = localStorage.getItem('products');
     const storedMyProducts = localStorage.getItem("myProducts");
-    if (storedSchool) {
-      setSchool(storedSchool);
-    } else {
-      const fetchSchool = async () => {
-        try {
-          const latitude = 37.5665;
-          const longitude = 126.978;
-          const schoolData = await axios.get(
-            `http://54.180.75.157:8080/schools`,
-            {
-              params: { latitude, longitude },
-              headers: { 'Content-Type': 'application/json' },
-            }
-          );
-          setSchool(schoolData.data.name || '학교 이름 없음');
-        } catch (error) {
-          console.error('학교 데이터를 가져오는 데 실패했습니다:', error);
-        }
-      };
-      fetchSchool();
-    }
+    // if (storedSchool) {
+    //   setSchool(storedSchool);
+    // } else {
+    //   const fetchSchool = async () => {
+    //     try {
+    //       const latitude = 37.5665;
+    //       const longitude = 126.978;
+    //       const schoolData = await axios.get(
+    //         `http://54.180.75.157:8080/schools`,
+    //         {
+    //           params: { latitude, longitude },
+    //           headers: { 'Content-Type': 'application/json' },
+    //         }
+    //       );
+    //       setSchool(schoolData.data.name || '학교 이름 없음');
+    //     } catch (error) {
+    //       console.error('학교 데이터를 가져오는 데 실패했습니다:', error);
+    //     }
+    //   };
+    //   fetchSchool();
+    // }
 
     if (storedProducts) {
       setProducts(storedProducts);
     } else {
       const fetchProducts = async () => {
         try {
-          const fetchedProducts = await axios.get('/api/products');
-          setProducts(fetchedProducts.data);
+          if(!products.length){
+            const fetchedProducts = await getProducts(userInfo.id);
+            console.log(fetchedProducts);
+            if(fetchedProducts){
+              setProducts(fetchedProducts);
+              console.log("최신 상품 데이터 성공");
+            }}
         } catch (error) {
           console.log('최신 상품 데이터 실패:', error);
         }
@@ -126,9 +126,15 @@ const Home = () => {
     } else {
       const fetchMyProducts = async () => {
         try {
-          setMyProducts(getMyProducts(userInfo.id));
+          if(!products.length){
+          const fetchedMyProducts = await getMyProducts(userInfo.id);
+          console.log(fetchedMyProducts);
+          if(fetchMyProducts){
+            setMyProducts(fetchedMyProducts);
+            console.log("My 상품 데이터 성공");
+          }}
         } catch (error) {
-          console.log("최신 상품 데이터 실패")
+          console.log("My 상품 데이터 실패");
           console.error(error);
         }
       };

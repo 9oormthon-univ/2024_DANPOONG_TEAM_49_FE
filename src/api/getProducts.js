@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const getProducts = async () => {
   try {
-    const response = await axios.get(`http://54.180.75.157:8080/products`, 
+    const response = await axios.get(`http://54.180.75.157:8080/products/recent`, 
         // body, 
         {
             headers: {
