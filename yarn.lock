@@ -1592,6 +1592,18 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
+"@lottiefiles/dotlottie-react@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-react/-/dotlottie-react-0.10.0.tgz#300402802d5440e8f3ee33493e41d05542440e2a"
+  integrity sha512-krPJUIqpt7VluWc0aRWk0lYScCDSlbCpWvImU5eyJZeyroZ87bZYb+YlgUbtLHZ77DWmIBl4kGMhupU8+ugPSw==
+  dependencies:
+    "@lottiefiles/dotlottie-web" "0.37.0"
+
+"@lottiefiles/dotlottie-web@0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@lottiefiles/dotlottie-web/-/dotlottie-web-0.37.0.tgz#6943529a9f920e99031d644eade870d486f70fe8"
+  integrity sha512-dCtQkYlq9GDswJNmcIlUaAskxrsJ56SRhY8woNsHuIPWy+tfP9tgf1fA9fZ1Oj72DVdyYkK0DxLk58HhBrmpBQ==
+
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
   resolved "https://registry.npmjs.org/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz"

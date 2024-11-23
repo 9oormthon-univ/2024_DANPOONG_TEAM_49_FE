@@ -10,7 +10,7 @@ export const getMyProducts = async (id) => {
             },
         }
 );
-    console.log('getProducts 성공');
+    console.log('getMyProducts 성공');
     console.log(response.data);
     return response.data;
   } catch (error) {
