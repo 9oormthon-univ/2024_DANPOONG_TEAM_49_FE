@@ -310,12 +310,17 @@ const BigPhoto = styled.img`
 `;
 
 const ProductGrid = styled.div`
-    width:100%;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:30px; //padding 고려 꽉채우게 얘가 가변적이어야함.
-    margin-bottom:20px;
-`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc((100% - (3 * 100px)) / 2);
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0;
+  box-sizing: border-box;
+`;
+
+
+
 
 const ProductCard = styled.div`
     display:flex;
