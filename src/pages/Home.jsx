@@ -158,7 +158,7 @@ const Home = () => {
         <label className="mainTitle">진행중인 공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
         <ProductGrid>
           {mockPostData.map((product, index) => (
-            <ProductCard key={index} onClick={() => goToPost(index)}>
+            <ProductCard key={index} onClick={() => goToPost(index+1)}>
               <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
               <ProductInfo>
                 <div className="product-name">{product.title}</div>
@@ -176,7 +176,7 @@ const Home = () => {
         <label className="mainTitle">공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
         <ProductGrid>
           {mockPostData.map((product, index) => (
-            <ProductCard key={index}>
+            <ProductCard key={index} onClick={() => goToPost(index+1)}>
               <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
               <ProductInfo>
                 <div className="product-name">{product.title}</div>
