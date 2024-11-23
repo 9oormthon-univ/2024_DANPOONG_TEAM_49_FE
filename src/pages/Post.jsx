@@ -151,6 +151,7 @@ const HeaderBar = styled.div`
         cursor: pointer;
         display:flex;
         justify-content:center;
+        align-items:center;
         &.backBtn{
             position:absolute;
             left:20px;
@@ -158,6 +159,9 @@ const HeaderBar = styled.div`
         &.commentBtn{
             position:absolute;
             right:20px;
+            img{
+                margin-top:5px;
+            }
         }
     }
 
@@ -230,6 +234,7 @@ const ProductSection = styled.div`
         font-size: 18px;
         font-weight: bold;
         margin-bottom:12px;
+        max-width: calc(100% - 150px);
     }
 
     .productRow {
