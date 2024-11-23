@@ -6,10 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useSelector } from 'react-redux';
 
 const Post = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const kakaoId = useSelector((state) => state.kakao.kakaoId);
+
+    console.log(kakaoId);
 
     const product = mockPostData.find((item) => item.id === parseInt(id));
 
@@ -284,7 +288,7 @@ const PriceSection = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    font-size: 16px;
+    font-size: 14px;
 
     .totalPrice {
         font-weight: bold;
@@ -309,10 +313,10 @@ const QuantityControl = styled.div`
         font-size: 28px;
 
         &.left{
-            margin-right:20px;
+            margin-right:10px;
         }
         &.right{
-            margin-left:20px;
+            margin-left:10px;
         }
     }
 
@@ -322,7 +326,7 @@ const QuantityControl = styled.div`
     }
 
     .quantityLabel{
-        margin-right:20px;
+        margin-right:10px;
     }
 `;
 

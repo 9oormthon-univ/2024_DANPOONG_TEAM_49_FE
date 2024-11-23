@@ -11,6 +11,11 @@ import mockPostData from "../components/mockPostData";
 import { getProducts } from '../api/getProducts';
 import { getMyProducts } from '../api/getMyProducts';
 import Cookies from 'js-cookie';
+import { postSaveUser } from '../api/postSaveUser';
+import { getUserId } from '../api/getUserId';
+import { useDispatch } from 'react-redux';
+import { setKakaoId } from '../redux/kakaoSlice'; // 경로가 정확한지 확인
+
 
 
 // 학교 이름을 가져오는 함수
@@ -36,19 +41,22 @@ const Home = () => {
   const location = useLocation(); // 전달받은 state를 읽음
 
   const [userInfo, setUserInfo] = useState(location.state?.userInfo || null);
+  const [userId, setUserId] = useState("");
   const [school, setSchool] = useState("");
   const [products, setProducts] = useState([]); 
   const [myProducts, setMyProducts] = useState([]); 
   const [searchValue, setSearchValue] = useState(""); 
-  const navigate = useNavigate();
+  const [token,setToken]=useState("");
 
+  const dispatch = useDispatch(); // Redux dispatch 가져오기
+  const navigate = useNavigate();
    const mockSwiper = [
     {
       id: 1,
       img: [
-        "/assets/post/1.png",
-        "/assets/post/2.png",
-        "/assets/post/3.png",
+        "/assets/homeswiper/ad1.png",
+        "/assets/homeswiper/ad2.jpg",
+        "/assets/homeswiper/ad3.jpg",
       ],
     },
   ];
@@ -72,19 +80,35 @@ const Home = () => {
 
   useEffect(()=>{
     const accessToken = Cookies.get('accessToken');
-    console.log("accessToken :", accessToken);
+    setToken(accessToken);
+    const fetchUserId = async () => {
+      try {
+          const userId = await getUserId();
+          setUserId(userId);
+          console.log("userId :",userId);
+      } catch (error) {
+          console.error("Error fetching user ID:", error);
+      }
+    };
+    fetchUserId();
   },[])
+
+  useEffect(()=>{
+    postSaveUser(token);
+  },[token])
 
   useEffect(() => {
     if (!userInfo) {
       console.log('사용자 정보 없음');
     } else {
       console.log('받아온 사용자 정보:', userInfo);
+      dispatch(setKakaoId(userInfo.id)); // Redux에 userId 저장
     }
 
     const storedSchool = localStorage.getItem('school');
     const storedProducts = localStorage.getItem('products');
     const storedMyProducts = localStorage.getItem("myProducts");
+    //school
     if (storedSchool) {
       setSchool(storedSchool);
     } else {
@@ -106,29 +130,40 @@ const Home = () => {
       };
       fetchSchool();
     }
-
+    //recent product
     if (storedProducts) {
       setProducts(storedProducts);
     } else {
       const fetchProducts = async () => {
         try {
-          const fetchedProducts = await axios.get('/api/products');
-          setProducts(fetchedProducts.data);
+          if(!products.length){
+            const fetchedProducts = await getProducts(userInfo.id);
+            console.log(fetchedProducts);
+            if(fetchedProducts){
+              setProducts(fetchedProducts);
+              console.log("최신 상품 데이터 성공");
+            }}
         } catch (error) {
           console.log('최신 상품 데이터 실패:', error);
         }
       };
       fetchProducts();
     }
-
+    //my product
     if (storedMyProducts) {
       setMyProducts(storedMyProducts);
     } else {
       const fetchMyProducts = async () => {
         try {
-          setMyProducts(getMyProducts(userInfo.id));
+          if(!products.length){
+          const fetchedMyProducts = await getMyProducts(userInfo.id);
+          console.log(fetchedMyProducts);
+          if(fetchMyProducts){
+            setMyProducts(fetchedMyProducts);
+            console.log("My 상품 데이터 성공");
+          }}
         } catch (error) {
-          console.log("최신 상품 데이터 실패")
+          console.log("My 상품 데이터 실패");
           console.error(error);
         }
       };
@@ -141,7 +176,7 @@ const Home = () => {
     <>
       <Container>
         <div className="topBar">
-          <label className="mainTitle">{school}</label>
+          <label className="mainTitle">{school} 기숙사</label>
           <img src="/assets/myPage.svg" onClick={goToMyPage} alt="마이페이지 버튼" />
         </div>
         <InputGroup>
@@ -162,8 +197,8 @@ const Home = () => {
       </Container>
       <BigPhotoWrapper>
         <Swiper
-          spaceBetween={10}
-          slidesPerView={2}
+          spaceBetween={0}
+          slidesPerView={1}
           loop={true}
           pagination={true}
           modules={[Pagination, Autoplay]}
@@ -327,11 +362,9 @@ const BigPhotoWrapper = styled.div`
 `;
 
 const BigPhoto = styled.img`
-    width: 216px;
-    max-width: 350px;
+    width:100vw;
     height: 216px;
     display: block;
-    margin: 0 auto;
 `;
 
 const ProductGrid = styled.div`
