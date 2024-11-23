@@ -17,6 +17,7 @@ import SignUpSite from './pages/SignUpSite';
 import SignUpSiteConfirm from './pages/SignUpSiteConfirm';
 import MypageJoined from './pages/MypageJoined';
 import MypageHosted from './pages/MypageHosted';
+import RedirectKakaoPage from './pages/Callback';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           {/* 로그인 */}
           <Route path='/' element={<Splash/>} />
           <Route path='/login' element={<Login/>} />
+          <Route path="/callback" element={<RedirectKakaoPage />} />
           <Route path='/signup/email' element={<SignUpEmail/>} />
           <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
           <Route path='/signup/success' element={<SignUpSuccess/>} />
