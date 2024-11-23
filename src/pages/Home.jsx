@@ -6,10 +6,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {Pagination } from 'swiper/modules';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
 import { getProducts } from '../api/getProducts';
 import { getMyProducts } from '../api/getMyProducts';
+import Cookies from 'js-cookie';
 
 
 // 학교 이름을 가져오는 함수
@@ -32,6 +33,9 @@ export const getSchool = async (latitude, longitude) => {
 };
 
 const Home = () => {
+  const location = useLocation(); // 전달받은 state를 읽음
+
+  const [userInfo, setUserInfo] = useState(location.state?.userInfo || null);
   const [school, setSchool] = useState("");
   const [products, setProducts] = useState([]); 
   const [myProducts, setMyProducts] = useState([]); 
@@ -66,11 +70,21 @@ const Home = () => {
     navigate(`/post/${id}`);
   };
 
+  useEffect(()=>{
+    const accessToken = Cookies.get('accessToken');
+    console.log("accessToken :", accessToken);
+  },[])
+
   useEffect(() => {
-    const storedSchool = localStorage.getItem("school");
-    const storedProducts = localStorage.getItem("products");
+    if (!userInfo) {
+      console.log('사용자 정보 없음');
+    } else {
+      console.log('받아온 사용자 정보:', userInfo);
+    }
+
+    const storedSchool = localStorage.getItem('school');
+    const storedProducts = localStorage.getItem('products');
     const storedMyProducts = localStorage.getItem("myProducts");
-    //학교명 api
     if (storedSchool) {
       setSchool(storedSchool);
     } else {
@@ -78,43 +92,50 @@ const Home = () => {
         try {
           const latitude = 37.5665;
           const longitude = 126.978;
-          const schoolData = await getSchool(latitude, longitude);
-          setSchool(schoolData.name || "학교 이름 없음");
+          const schoolData = await axios.get(
+            `http://54.180.75.157:8080/schools`,
+            {
+              params: { latitude, longitude },
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
+          setSchool(schoolData.data.name || '학교 이름 없음');
         } catch (error) {
-          console.error("학교 데이터를 가져오는 데 실패했습니다:", error);
+          console.error('학교 데이터를 가져오는 데 실패했습니다:', error);
         }
       };
       fetchSchool();
     }
-    //두 번째 grid api
+
     if (storedProducts) {
       setProducts(storedProducts);
     } else {
       const fetchProducts = async () => {
         try {
-          setProducts(getProducts());
+          const fetchedProducts = await axios.get('/api/products');
+          setProducts(fetchedProducts.data);
         } catch (error) {
-          console.log("최신 상품 데이터 실패")
-          console.error(error);
+          console.log('최신 상품 데이터 실패:', error);
         }
       };
       fetchProducts();
     }
 
-    // if (storedMyProducts) {
-    //   setMyProducts(storedMyProducts);
-    // } else {
-    //   const fetchMyProducts = async () => {
-    //     try {
-    //       setMyProducts(getMyProducts(UserId));
-    //     } catch (error) {
-    //       console.log("최신 상품 데이터 실패")
-    //       console.error(error);
-    //     }
-    //   };
-    //   fetchMyProducts();
-    // }
-  }, []);
+    if (storedMyProducts) {
+      setMyProducts(storedMyProducts);
+    } else {
+      const fetchMyProducts = async () => {
+        try {
+          setMyProducts(getMyProducts(userInfo.id));
+        } catch (error) {
+          console.log("최신 상품 데이터 실패")
+          console.error(error);
+        }
+      };
+      fetchMyProducts();
+    }
+
+  }, [userInfo]);
 
   return (
     <>
