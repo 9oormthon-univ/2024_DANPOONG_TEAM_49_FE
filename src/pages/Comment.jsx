@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getComment } from "../api/getComment";
+import { postComment } from "../api/postComment";
 
 
 const Comment = () => {
@@ -44,7 +45,7 @@ const Comment = () => {
 
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate("/");
+    navigate(`/post/${id}`);
   };
 
 
@@ -54,7 +55,10 @@ const Comment = () => {
 
 
   const handleSend = () => {
-    if (!inputValue.trim()) return; // 빈 입력 방지
+    if (!inputValue.trim()){
+      alert("댓글 란이 비었습니다.");
+      return;
+    } // 빈 입력 방지
     const newComment = {
       id: comment.length + 1,
       author: "나",
@@ -68,6 +72,7 @@ const Comment = () => {
       isMine: true, // 내가 보낸 메시지
     };
     setComment([...comment, newComment]); // 새 댓글 추가
+    postComment(id,comment);
     setInputValue(""); // 입력 초기화
   };
   

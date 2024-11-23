@@ -8,6 +8,8 @@ import "swiper/css/navigation";
 import {Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
+import { getProducts } from '../api/getProducts';
+import { getMyProducts } from '../api/getMyProducts';
 
 
 // 학교 이름을 가져오는 함수
@@ -30,7 +32,9 @@ export const getSchool = async (latitude, longitude) => {
 };
 
 const Home = () => {
-  const [school, setSchool] = useState(""); 
+  const [school, setSchool] = useState("");
+  const [products, setProducts] = useState([]); 
+  const [myProducts, setMyProducts] = useState([]); 
   const [searchValue, setSearchValue] = useState(""); 
   const navigate = useNavigate();
 
@@ -64,6 +68,9 @@ const Home = () => {
 
   useEffect(() => {
     const storedSchool = localStorage.getItem("school");
+    const storedProducts = localStorage.getItem("products");
+    const storedMyProducts = localStorage.getItem("myProducts");
+    //학교명 api
     if (storedSchool) {
       setSchool(storedSchool);
     } else {
@@ -79,6 +86,34 @@ const Home = () => {
       };
       fetchSchool();
     }
+    //두 번째 grid api
+    if (storedProducts) {
+      setProducts(storedProducts);
+    } else {
+      const fetchProducts = async () => {
+        try {
+          setProducts(getProducts());
+        } catch (error) {
+          console.log("최신 상품 데이터 실패")
+          console.error(error);
+        }
+      };
+      fetchProducts();
+    }
+
+    // if (storedMyProducts) {
+    //   setMyProducts(storedMyProducts);
+    // } else {
+    //   const fetchMyProducts = async () => {
+    //     try {
+    //       setMyProducts(getMyProducts(UserId));
+    //     } catch (error) {
+    //       console.log("최신 상품 데이터 실패")
+    //       console.error(error);
+    //     }
+    //   };
+    //   fetchMyProducts();
+    // }
   }, []);
 
   return (
@@ -123,7 +158,7 @@ const Home = () => {
         <label className="mainTitle">진행중인 공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
         <ProductGrid>
           {mockPostData.map((product, index) => (
-            <ProductCard key={index} onClick={() => goToPost(index)}>
+            <ProductCard key={index} onClick={() => goToPost(index+1)}>
               <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
               <ProductInfo>
                 <div className="product-name">{product.title}</div>
@@ -141,7 +176,7 @@ const Home = () => {
         <label className="mainTitle">공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
         <ProductGrid>
           {mockPostData.map((product, index) => (
-            <ProductCard key={index}>
+            <ProductCard key={index} onClick={() => goToPost(index+1)}>
               <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
               <ProductInfo>
                 <div className="product-name">{product.title}</div>

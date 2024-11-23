@@ -12,7 +12,7 @@ function Search() {
 
   // 뒤로가기
   const goBack = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   // 태그 삭제 기능
