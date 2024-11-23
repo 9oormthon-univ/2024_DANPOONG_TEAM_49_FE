@@ -30,34 +30,37 @@ export const getSchool = async (latitude, longitude) => {
 };
 
 const Home = () => {
-  const [school, setSchool] = useState(""); // school 상태 초기화
-  const [searchValue, setSearchValue] = useState(""); // searchValue 상태 초기화
+  const [school, setSchool] = useState(""); 
+  const [searchValue, setSearchValue] = useState(""); 
   const navigate = useNavigate();
 
+   const mockSwiper = [
+    {
+      id: 1,
+      img: [
+        "/assets/post/1.png",
+        "/assets/post/2.png",
+        "/assets/post/3.png",
+      ],
+    },
+  ];
 
-    const navigate=useNavigate();
-    const goToMyPage=()=>{
-        navigate("/mypage")
-    }
-    const goToWrite=()=>{
-        navigate("/write")
-    }
-    const goToSearch=()=>{
-        console.log(searchValue);
-        navigate("/search")
-    }
-    const goToPost=(id)=>{
-        navigate(`/post/${id}`)
-    }
 
-  const mockSwiper = [{
-    id: 1,
-    img: [
-      "/assets/post/1.png",
-      "/assets/post/2.png",
-      "/assets/post/3.png",
-    ],
-  }];
+  const goToMyPage = () => {
+    navigate("/mypage/joined");
+  };
+
+  const goToWrite = () => {
+    navigate("/write");
+  };
+
+  const goToSearch = () => {
+    navigate("/search");
+  };
+
+  const goToPost = (id) => {
+    navigate(`/post/${id}`);
+  };
 
   useEffect(() => {
     const storedSchool = localStorage.getItem("school");
@@ -66,8 +69,8 @@ const Home = () => {
     } else {
       const fetchSchool = async () => {
         try {
-          const latitude = 37.5665; // 예시 위도
-          const longitude = 126.978; // 예시 경도
+          const latitude = 37.5665;
+          const longitude = 126.978;
           const schoolData = await getSchool(latitude, longitude);
           setSchool(schoolData.name || "학교 이름 없음");
         } catch (error) {
@@ -78,99 +81,90 @@ const Home = () => {
     }
   }, []);
 
-  const goToMyPage = () => {
-    navigate("/mypage/joined");
-  };
-
-  const goToWrite = () => {
-    console.log(searchValue);
-    navigate("/write");
-  };
-
-
-    return (
-        <>
-            <Container>
-                <div className='topBar'>
-                    <label className='mainTitle'>{school}</label>
-                    <img src='/assets/myPage.svg' onClick={goToMyPage} alt='마이페이지 버튼'/>
+  return (
+    <>
+      <Container>
+        <div className="topBar">
+          <label className="mainTitle">{school}</label>
+          <img src="/assets/myPage.svg" onClick={goToMyPage} alt="마이페이지 버튼" />
+        </div>
+        <InputGroup>
+          <img src="/assets/hamburger.svg" alt="goBack" className="hamburger" />
+          <input
+            type="text"
+            className="search-input"
+            placeholder="원하는 물품을 검색해보세요!"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <img
+            src="/assets/search_icon.svg"
+            alt="search"
+            className="search-icon"
+            onClick={goToSearch}
+          />
+        </InputGroup>
+      </Container>
+      <BigPhotoWrapper>
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={2}
+          loop={true}
+          pagination={true}
+          modules={[Pagination]}
+        >
+          {mockSwiper[0].img.map((image, index) => (
+            <SwiperSlide key={index}>
+              <BigPhoto src={image} alt={`상품 사진 ${index + 1}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </BigPhotoWrapper>
+      <Container>
+        <label className="mainTitle">진행중인 공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
+        <ProductGrid>
+          {mockPostData.map((product, index) => (
+            <ProductCard key={index} onClick={() => goToPost(index)}>
+              <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
+              <ProductInfo>
+                <div className="product-name">{product.title}</div>
+                <div className="product-price">
+                  <span>1개당 </span>
+                  <span className="price">{product.price}원</span>
                 </div>
-                <InputGroup>
-                    <img
-                    src="/assets/hamburger.svg"
-                    alt="goBack"
-                    className="hamburger"
-                    />
-                    <input
-                    type="text"
-                    className="search-input"
-                    placeholder="원하는 물품을 검색해보세요!"
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    />
-                    <img
-                    src="/assets/search_icon.svg"
-                    alt="search"
-                    className="search-icon"
-                    onClick={goToSearch}
-                    />
-                </InputGroup>
-            </Container>
-                <BigPhotoWrapper>
-                    <Swiper
-                        spaceBetween={10}
-                        slidesPerView={2}
-                        loop={true}
-                        pagination={true}
-                        modules={[Pagination]}
-                    >
-                        {mockSwiper[0].img.map((image, index) => (
-                        <SwiperSlide key={index}>
-                            <BigPhoto src={image} alt={`상품 사진 ${index + 1}`} />
-                        </SwiperSlide>
-                    ))}
-                    </Swiper>
-                </BigPhotoWrapper>
-            <Container>
-                <label className='mainTitle'>진행중인 공동구매 <img src='/assets/header_front.svg' alt='arrow'/></label>
-                <ProductGrid>
-                    {mockPostData.map((product,index)=>(
-                        <ProductCard key={index} onClick={goToPost(index)}>
-                            <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`}/>
-                            <ProductInfo>
-                                <div className='product-name'>{product.title}</div>
-                                <div className='product-price'>
-                                    <span>1개당 </span>
-                                    <span className='price'>{product.price}원</span>
-                                </div>
-                                <div className='participant'>참여 인원 : {product.total - product.remain}/{product.total}</div>
-                            </ProductInfo>
-                        </ProductCard>
-                    ))}
-                </ProductGrid>
-                <label className='mainTitle'>공동구매 <img src='/assets/header_front.svg' alt='arrow'/></label>
-                <ProductGrid>
-                    {mockPostData.map((product,index)=>(
-                        <ProductCard key={index} >
-                            <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`}/>
-                            <ProductInfo>
-                                <div className='product-name'>{product.title}</div>
-                                <div className='product-price'>
-                                    <span>1개당 </span>
-                                    <span className='price'>{product.price}원</span>
-                                </div>
-                                <div className='participant'>참여 인원 : {product.total - product.remain}/{product.total}</div>
-                            </ProductInfo>
-                        </ProductCard>
-                    ))}
-                </ProductGrid>
-                <WriteButton onClick={goToWrite}>
-                    <img src='/assets/writePencil.svg' alt='글쓰기 아이콘'/>
-                    <span>글쓰기</span>
-                </WriteButton>
-            </Container>
-        </>
-    );
+                <div className="participant">
+                  참여 인원 : {product.total - product.remain}/{product.total}
+                </div>
+              </ProductInfo>
+            </ProductCard>
+          ))}
+        </ProductGrid>
+        <label className="mainTitle">공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
+        <ProductGrid>
+          {mockPostData.map((product, index) => (
+            <ProductCard key={index}>
+              <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
+              <ProductInfo>
+                <div className="product-name">{product.title}</div>
+                <div className="product-price">
+                  <span>1개당 </span>
+                  <span className="price">{product.price}원</span>
+                </div>
+                <div className="participant">
+                  참여 인원 : {product.total - product.remain}/{product.total}
+                </div>
+              </ProductInfo>
+            </ProductCard>
+          ))}
+        </ProductGrid>
+        <WriteButton onClick={goToWrite}>
+          <img src="/assets/writePencil.svg" alt="글쓰기 아이콘" />
+          <span>글쓰기</span>
+        </WriteButton>
+      </Container>
+    </>
+  );
 };
+
 
 export default Home;
 

@@ -12,13 +12,10 @@ export const getSchool = async (latitude, longitude) => {
     console.log('요청 URL:', `http://54.180.75.157:8080/schools`);
     console.log('요청 파라미터:', { latitude, longitude });
 
-    const response = await axios.get(
-      `http://54.180.75.157:8080/schools`, 
-      {
-        params: { latitude, longitude },
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await axios.get(`http://54.180.75.157:8080/schools`, {
+      params: { latitude, longitude },
+    });
+
     console.log('getSchool 성공:', response.data);
     return response.data;
   } catch (error) {
@@ -26,3 +23,4 @@ export const getSchool = async (latitude, longitude) => {
     throw error;
   }
 };
+

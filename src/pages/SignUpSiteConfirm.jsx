@@ -12,7 +12,7 @@ const SignUpSiteConfirm = () => {
     // 카카오 지도 스크립트 로드
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=4b1593cd10be7af1b435d6974e7be1e2&autoload=false";
+    "https://dapi.kakao.com/v2/maps/sdk.js?appkey=4b1593cd10be7af1b435d6974e7be1e2&autoload=false";
     script.async = true;
 
     script.onload = () => {
