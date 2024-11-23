@@ -28,7 +28,7 @@ const Post = () => {
     };
 
     const goToHome = () => {
-        navigate('/home');
+        navigate('/success');
     };
 
     const goToComment = (id) => {

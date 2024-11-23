@@ -6,7 +6,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 const Success = () => {
     const navigate=useNavigate();
     const goToHome=()=>{
-        navigate("/");
+        navigate("/home");
     }
     return (
         <>
