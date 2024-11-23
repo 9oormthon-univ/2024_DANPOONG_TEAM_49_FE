@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import progressBarImage from '../images/progressBar1.png';
 import backButtonImage from '../images/backButton.png';
 
@@ -8,13 +9,38 @@ const SignUpEmail = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (e) => {
         const value = e.target.value;
         setEmail(value);
 
+        // 이메일 유효성 검사
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         setIsValid(emailRegex.test(value));
+    };
+
+    const handleSendEmail = async () => {
+        if (!isValid || isLoading) return;
+
+        try {
+            setIsLoading(true);
+
+            await axios.post(
+                'http://54.180.75.157:8080/api/auth/email',
+                { email },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+
+            alert('인증 코드 전송 완료!');
+            sessionStorage.setItem('email', email); // 이메일 저장
+            navigate('/signup/email-cert');
+        } catch (error) {
+            console.error('인증 코드 전송 실패:', error.response?.data || error.message);
+            alert('인증 코드 전송 실패ㅠ.ㅠ 다시 시도하세요!');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -34,9 +60,9 @@ const SignUpEmail = () => {
                 />
                 <InputButton
                     type="button"
-                    value="다음  →"
-                    onClick={() => isValid && navigate('/signup/email-cert')}
-                    isValid={isValid}
+                    value="다음 →"
+                    onClick={handleSendEmail} // 서버에 이메일 전송
+                    isValid={isValid && !isLoading} // 유효하고 로딩 중이 아닐 때 활성화
                 />
             </Container>
         </>
@@ -61,7 +87,6 @@ const BackButton = styled.button`
     background-size: contain;
     border: none;
     cursor: pointer;
-    margin: 1px 1px 1px;
 `;
 
 const ProgressBar = styled.img`
@@ -96,9 +121,8 @@ const InputField = styled.input`
     color: black;
     border: 1px solid #ccc;
     border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding-left: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
 `;
 
