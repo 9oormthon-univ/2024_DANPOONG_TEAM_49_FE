@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const email = '';
-const authCode = '123456';
+const authCode = '1F7t92Sy';
 const token = 'your_access_token_here';
 
 const data = {
