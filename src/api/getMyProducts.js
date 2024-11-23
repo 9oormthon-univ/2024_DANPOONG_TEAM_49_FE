@@ -11,7 +11,7 @@ export const getMyProducts = async (id) => {
         }
 );
     console.log('getMyProducts 성공');
-    console.log(response.data);
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);

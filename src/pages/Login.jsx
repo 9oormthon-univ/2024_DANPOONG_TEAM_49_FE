@@ -53,7 +53,7 @@ import axios from 'axios';
                     success: (authObj) => {
                         console.log('카카오 로그인 성공:', authObj);
                         // 로그인 성공 후 리다이렉트 URI로 이동
-                        const redirectUri = encodeURIComponent('https://danpoong-team-49.netlify.app/callback');
+                        const redirectUri = encodeURIComponent('http://localhost:3000/callback');
                         const clientId = 'cdd423a129bb50b1413fa39e3a72e142';  // 카카오 앱의 REST API 키
                         window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
                     },
@@ -155,7 +155,7 @@ import axios from 'axios';
                     })
                     .then((response) => {
                         console.log('사용자 정보 저장 완료:', response);
-                        navigate('/home');  // 홈 화면으로 이동
+                        navigate('/signup/site');  // 홈 화면으로 이동
                     })
                     .catch((error) => {
                         console.error('문제가 발생했습니다:', error);
