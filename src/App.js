@@ -25,20 +25,21 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='*' element={<NotFound/>} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/success' element={<Success/>} />
-          <Route path='/search' element={<Search/>} />
-          <Route path="/comment/:id" element={<Comment />} />
-          <Route path='*' element={<NotFound/>} />
+          {/* 로그인 */}
           <Route path='/' element={<Splash/>} />
-          <Route path='/write' element={<Write/>} />
-          <Route path='/post/:id' element={<Post/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup/email' element={<SignUpEmail/>} />
           <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
           <Route path='/signup/success' element={<SignUpSuccess/>} />
           <Route path='/signup/site' element={<SignUpSite/>} />
           <Route path='/signup/site-confirm' element={<SignUpSiteConfirm/>} />
+          <Route path='/success' element={<Success/>} />
+          {/* home */}
+          <Route path='/home' element={<Home />} />
+          <Route path='/search' element={<Search/>} />
+          <Route path='/write' element={<Write/>} />
+          <Route path='/post/:id' element={<Post/>} />
+          <Route path="/comment/:id" element={<Comment />} />
           <Route path='/mypage/joined' element={<MypageJoined/>} />
           <Route path='/mypage/hosted' element={<MypageHosted/>} />
        </Routes>
