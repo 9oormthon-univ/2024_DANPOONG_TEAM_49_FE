@@ -3,13 +3,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getComment } from "../api/getComment";
 import { postComment } from "../api/postComment";
-
+import Cookies from 'js-cookie';
 
 const Comment = () => {
   const { id } = useParams();
   const [comment,setComment]=useState([]);
+  const [token,setToken]=useState("");
   // const [comments, setComments] = useState(mockData);
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(()=>{
+    const accessToken = Cookies.get('accessToken');
+    setToken(accessToken);
+    console.log("accessToken :", token);
+  },[])
 
   const mockData = [
     { id: 1, author: "홍길동 (주최자)", content: "안녕하세요. 저희 2개만 더 예약받고 진행할게요.", timestamp: "11.13 03:23", isMine: false },
@@ -43,6 +50,7 @@ const Comment = () => {
   console.log("댓글 상태가 업데이트되었습니다:", comment);
   }, [comment]);
 
+
   const navigate = useNavigate();
   const goToHome = () => {
     navigate(`/post/${id}`);
@@ -72,8 +80,10 @@ const Comment = () => {
       isMine: true, // 내가 보낸 메시지
     };
     setComment([...comment, newComment]); // 새 댓글 추가
-    postComment(id,comment);
-    setInputValue(""); // 입력 초기화
+    if(token){
+      postComment(id,comment,token);
+      setInputValue(""); // 입력 초기화
+    }
   };
   
 
