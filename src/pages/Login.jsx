@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import kakaoImage from '../images/kakao.png';
+import titleImage from '../images/기숙상점.png';
 import axios from 'axios';
 
     const Login = () => {
@@ -142,7 +143,7 @@ import axios from 'axios';
 
     return (
         <Container>
-            <Title>기숙상점</Title>
+            <Title src={titleImage} alt="Title Image" />
             <ButtonWrapper>
                 <SignupButton>3초 바로 회원가입 ⚡</SignupButton>
                 <KakaoButton
@@ -165,10 +166,9 @@ const Container = styled.div`
     height: 100vh;
 `;
 
-const Title = styled.h1`
-    font-size: 32px;
-    margin-bottom: 30px;
-    color: #AF3400;
+
+const Title = styled.img`
+    margin-bottom: 50px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -184,6 +184,7 @@ const SignupButton = styled.button`
     color: black;
     border: none;
     border-radius: 8px;
+    margin-bottom: 30px;
     font-size: 12px;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
