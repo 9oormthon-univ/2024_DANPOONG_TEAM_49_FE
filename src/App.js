@@ -20,6 +20,7 @@ import MypageJoined from './pages/MypageJoined';
 import MypageHosted from './pages/MypageHosted';
 import RedirectKakaoPage from './pages/Callback';
 import store from './redux/store';
+import LowPost from './pages/LowPost';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path='/search' element={<Search/>} />
           <Route path='/write' element={<Write/>} />
           <Route path='/post/:id' element={<Post/>} />
+          <Route path='/lowpost/:id' element={<LowPost/>} />
           <Route path="/comment/:id" element={<Comment />} />
           <Route path='/mypage/joined' element={<MypageJoined/>} />
           <Route path='/mypage/hosted' element={<MypageHosted/>} />
