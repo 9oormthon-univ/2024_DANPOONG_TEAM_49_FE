@@ -4,7 +4,7 @@ export const postSaveUser = async (token) => {
   const accessToken = Cookies.get('accessToken');
   if(accessToken){
     try {
-        console.log("saveuser gained token :",accessToken);
+        // console.log("saveuser gained token :",accessToken);
         const response = await axios.post(`http://54.180.75.157:8080/api/auth/token/save`,
             null,
             {

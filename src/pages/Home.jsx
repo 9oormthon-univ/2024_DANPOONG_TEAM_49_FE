@@ -15,6 +15,7 @@ import { postSaveUser } from '../api/postSaveUser';
 import { getUserId } from '../api/getUserId';
 import { useDispatch } from 'react-redux';
 import { setKakaoId } from '../redux/kakaoSlice'; // 경로가 정확한지 확인
+import mockLowData from '../components/mockLowData';
 
 
 
@@ -77,7 +78,10 @@ const Home = () => {
   const goToPost = (id) => {
     navigate(`/post/${id}`);
   };
-
+  
+  const goToLowPost = (id) => {
+    navigate(`/lowpost/${id}`);
+  };
   useEffect(()=>{
     const accessToken = Cookies.get('accessToken');
     setToken(accessToken);
@@ -235,8 +239,8 @@ const Home = () => {
         </ProductGrid>
         <label className="mainTitle">공동구매 <img src="/assets/header_front.svg" alt="arrow" /></label>
         <ProductGrid>
-          {mockPostData.map((product, index) => (
-            <ProductCard key={index} onClick={() => goToPost(index+1)}>
+          {mockLowData.map((product, index) => (
+            <ProductCard key={index} onClick={() => goToLowPost(index+1)}>
               <img src={product.img[0]} alt={`진행중인 상품 사진 ${index + 1}`} />
               <ProductInfo>
                 <div className="product-name">{product.title}</div>

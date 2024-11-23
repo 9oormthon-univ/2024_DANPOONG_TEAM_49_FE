@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 //icons
 import {CiCamera} from "react-icons/ci";
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 const Write = () => {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
@@ -11,6 +13,8 @@ const Write = () => {
     const [link, setLink] = useState("");
     const [location, setLocation] = useState("");
     const [save, setSave] = useState("");
+    const [totalQuantity, setTotalQuantity] = useState("1"); // 모집 개수 상태
+    const [myQuantity, setMyQuantity] = useState("1"); // 내가 구매하는 개수 상태
   
     const navigate = useNavigate();
     const goToHome = () => {
@@ -28,9 +32,94 @@ const Write = () => {
       }
     };
   
-    const fetchWrite = () => {
-      // API 호출 코드
-    };
+    const kakaoId = useSelector((state) => state.kakao.kakaoId);
+
+const fetchWrite = () => {
+  try {
+    const response = axios.post(
+      `http://54.180.75.157:8080/products/${kakaoId}/leadCreate`,
+      {
+        body: {  
+          "title": title,
+          "totalNum": totalQuantity,  
+          "quantity": myQuantity, 
+          "price": price, 
+          "savePrice": 500, 
+          "link": link,
+          "pickupLocation":location,
+          "img": productPhotos,
+          "reservation": { 
+            "product": { 
+            "productId": 1 
+              },    
+            "school": {
+              "schoolId": 1    
+            },
+            "user": {
+            "userId": kakaoId    },
+            "quantity": myQuantity,
+            "role": "주최자",
+            "createdAt": "2024-11-24T12:00:00"
+          }
+        }
+      },
+      {
+        headers: {
+          "Content-Type": "*/*",
+          //   "Authorization": `Bearer ${accessToken}`
+        },
+      }
+    );
+    console.log('postWrite 성공');
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+    // const fetchWrite = () => {
+    //   const kakaoId = useSelector((state) => state.kakao.kakaoId);
+    //   try {
+    //     const response = axios.post(`http://54.180.75.157:8080/products/${kakaoId}/leadCreate`, 
+    //         {
+    //             body: {  
+    //               "title": title,
+    //               "totalNum": 100,  
+    //               "quantity": 10, 
+    //               "price": price, 
+    //               "savePrice": 500, 
+    //               "link": link,
+    //               "pickupLocation":location,
+    //               "img": productPhotos,
+    //               "reservation": { 
+    //                 "product": { 
+    //                 "productId": 1 
+    //                   },    
+    //                 "school": {
+    //                   "schoolId": 1    
+    //                 },
+    //                 "user": {
+    //                 "userId": 123    },
+    //                 "quantity": 10,
+    //                 "role": "주최자",
+    //                 "createdAt": "2024-11-24T12:00:00"
+    //               }
+    //             }
+    //         },
+    //         {
+    //             headers: {
+    //             "Content-Type": "*/*",
+    //             //   "Authorization": `Bearer ${accessToken}`
+    //             },
+    //         }
+    // );
+    //     console.log('postWrite 성공');
+    //     console.log(response);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
   
     return (
       <>
@@ -113,20 +202,28 @@ const Write = () => {
           <FormRow>
             <FormGroup>
               <label>모집 개수</label>
-              <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+              <select
+                value={totalQuantity}
+                onChange={(e) => setTotalQuantity(e.target.value)}
+              >
+                {[...Array(40)].map((_, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
               </select>
             </FormGroup>
             <FormGroup>
               <label>내가 구매하는 개수</label>
-              <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+              <select
+                value={myQuantity}
+                onChange={(e) => setMyQuantity(e.target.value)}
+              >
+                {[...Array(20)].map((_, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
               </select>
             </FormGroup>
           </FormRow>

@@ -60,7 +60,6 @@ function RedirectKakaoPage() {
         },
       })
       .then((res) => {
-        console.log('사용자 정보:', res.data);
         setUserInfo(res.data);
         // 사용자 정보를 받아온 후 다음 페이지로 이동
         navigate('/signup/email', { state: { userInfo: res.data } });
