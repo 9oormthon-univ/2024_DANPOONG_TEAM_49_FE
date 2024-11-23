@@ -45,7 +45,7 @@ const Comment = () => {
 
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate("/");
+    navigate(`/post/${id}`);
   };
 
 
