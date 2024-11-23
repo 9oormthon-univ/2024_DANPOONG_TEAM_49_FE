@@ -1,19 +1,60 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import progressBarImage from '../images/progressBar2.png';
 import backButtonImage from '../images/backButton.png';
 
 const SignUpEmailCert = () => {
     const navigate = useNavigate();
     const [code, setCode] = useState('');
-    const [isValid, setIsValid] = useState(false);
+    const [isValid, setIsValid] = useState(true);
 
-    // 인증 코드 입력 처리
+    // sessionStorage에서 이메일 가져오기
+    const email = sessionStorage.getItem('email');
+    if (!email) {
+        alert('이메일 정보가 없습니다. 다시 시도해주세요!');
+        navigate('/signup/email');
+    }
+
+    // localStorage에서 카카오 액세스 토큰 가져오기
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        alert('로그인이 필요합니다.');
+        navigate('/login'); // 로그인 페이지로 리다이렉트
+    }
+
     const handleInputChange = (e) => {
         const value = e.target.value;
         setCode(value);
-        setIsValid(value.trim() !== ''); // 인증 코드가 입력되면 버튼 활성화
+        setIsValid(value.trim() !== '');
+    };
+
+    const handleVerifyCode = async () => {
+        if (!isValid) return;
+
+        try {
+            const response = await axios.post(
+                'http://54.180.75.157:8080/api/auth/email/verify',
+                { email, authCode: code },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}` // 액세스 토큰을 헤더에 추가
+                    }
+                }
+            );
+
+            if (response.data === '인증 성공') {
+                alert('인증 코드 확인 완료!');
+                navigate('/signup/site');
+            } else {
+                alert('인증 실패: ' + response.data);
+            }
+        } catch (error) {
+            console.error('인증 실패:', error.response?.data || error.message);
+            alert('인증 코드 확인 실패ㅠ.ㅠ 다시 시도하세요!');
+        }
     };
 
     return (
@@ -32,11 +73,11 @@ const SignUpEmailCert = () => {
                     onChange={handleInputChange}
                 />
                 <InputButton
-                    onClick={() => isValid && navigate('/signup/site')}
+                    type="button"
+                    value="다음 →"
+                    onClick={handleVerifyCode}
                     isValid={isValid}
-                >
-                    다음  →
-                </InputButton>
+                />
             </Container>
         </>
     );
