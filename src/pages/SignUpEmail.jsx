@@ -16,15 +16,15 @@ const SignUpEmail = () => {
         setEmail(value);
 
         // 이메일 유효성 검사
-        const emailRegex = /^[^\s@]+@[^\s@]+\.(ac\.kr)$/;
-        setIsValid(emailRegex.test(value));
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   // 이메일 형식 검사
+        setIsValid(emailRegex.test(value));  // 이메일 형식이 맞으면 true, 아니면 false
     };
 
     const handleSendEmail = async () => {
-        if (!isValid || isLoading) return;
+        if (!isValid || isLoading) return;  // 유효하지 않으면 전송하지 않음
     
         try {
-            setIsLoading(true);
+            setIsLoading(true);  // 로딩 상태 활성화
     
             const response = await axios.post(
                 'http://54.180.75.157:8080/api/auth/email',
@@ -35,27 +35,19 @@ const SignUpEmail = () => {
             // 서버에서 받은 response를 콘솔에 출력
             console.log("Response:", response);
     
-            // 응답을 받으면 성공 알림
+            // 이메일 값을 localStorage에 저장
+            localStorage.setItem('email', email);
+            console.log('Stored email:', email);  // 저장된 이메일 로그 출력
             alert('인증 코드 전송 완료!');
-            sessionStorage.setItem('email', email);
-            navigate('/signup/email-cert');
+            navigate('/signup/email-cert');  // 인증 코드 입력 페이지로 이동
         } catch (error) {
-            // error 객체가 있을 경우, response가 존재하는지 체크하여 로그 출력
-            if (error.response) {
-                console.error("Response Error:", error.response);
-                alert(`서버 오류: ${error.response.data.message || '알 수 없는 오류'}`);
-            } else if (error.request) {
-                console.error("Request Error:", error.request);
-                alert('서버 요청 실패, 네트워크를 확인하세요.');
-            } else {
-                console.error("Unknown Error:", error.message);
-                alert('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
-            }
-        } finally {
-            setIsLoading(false);
+
+            localStorage.setItem('email', email);
+            console.log('Stored email:', email);  // 저장된 이메일 로그 출력
+            alert('인증 코드 전송 실패!');
+            navigate('/signup/email-cert');
         }
     };
-    
 
     return (
         <>

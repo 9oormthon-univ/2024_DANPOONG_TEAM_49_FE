@@ -36,7 +36,13 @@ function RedirectKakaoPage() {
         console.log('액세스 토큰:', res.data);
         // 액세스 토큰을 받아 사용자 정보 조회
         const accessToken = res.data.access_token;
+        
+        // localStorage에 액세스 토큰 저장
+        localStorage.setItem('accessToken', accessToken);
+        
+        // 쿠키에도 저장 (선택사항)
         Cookies.set('accessToken', accessToken, { expires: 1 });
+        
         getUserInfo(accessToken);
       })
       .catch((error) => {
@@ -57,7 +63,7 @@ function RedirectKakaoPage() {
         console.log('사용자 정보:', res.data);
         setUserInfo(res.data);
         // 사용자 정보를 받아온 후 다음 페이지로 이동
-        navigate('/signup/site', { state: { userInfo: res.data } });
+        navigate('/signup/email', { state: { userInfo: res.data } });
       })
       .catch((error) => {
         console.error('사용자 정보 조회 실패:', error.response ? error.response.data : error);
