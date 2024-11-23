@@ -13,10 +13,7 @@ const SignUpEmailCert = () => {
     const handleInputChange = (e) => {
         const value = e.target.value;
         setCode(value);
-
-        // 인증 코드 유효성 검사: 숫자 6자리
-        const codeRegex = /^\d{6}$/;
-        setIsValid(codeRegex.test(value));
+        setIsValid(value.trim() !== ''); // 인증 코드가 입력되면 버튼 활성화
     };
 
     return (
