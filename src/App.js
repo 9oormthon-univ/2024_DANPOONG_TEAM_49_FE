@@ -1,5 +1,6 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { Provider } from 'react-redux';
 import GlobalStyle from './style/GlobalStyle';
 import Write from './pages/Write';
 import NotFound from './pages/NotFound';
@@ -18,10 +19,12 @@ import SignUpSiteConfirm from './pages/SignUpSiteConfirm';
 import MypageJoined from './pages/MypageJoined';
 import MypageHosted from './pages/MypageHosted';
 import RedirectKakaoPage from './pages/Callback';
+import store from './redux/store';
 
 function App() {
   return (
     <>
+    <Provider store={store}>
       <GlobalStyle/>
       <BrowserRouter>
         <Routes>
@@ -46,6 +49,7 @@ function App() {
           <Route path='/mypage/hosted' element={<MypageHosted/>} />
        </Routes>
       </BrowserRouter>
+    </Provider>
     </>
   );
 }

@@ -6,10 +6,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useSelector } from 'react-redux';
 
 const Post = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const kakaoId = useSelector((state) => state.kakao.kakaoId);
+
+    console.log(kakaoId);
 
     const product = mockPostData.find((item) => item.id === parseInt(id));
 

@@ -27,6 +27,7 @@ const Comment = () => {
   useEffect(() => {
     const fetchComments = async () => {
       const data = await getComment(id);
+      console.log(data);
       if (data) {
         const formattedData = data.map((item) => ({
           id: item.comment_id, // comment_id -> id
