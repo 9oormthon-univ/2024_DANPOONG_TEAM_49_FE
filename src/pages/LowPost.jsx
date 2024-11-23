@@ -7,15 +7,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useSelector } from 'react-redux';
+import mockLowData from '../components/mockLowData';
 
-const Post = () => {
+const LowPost = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const kakaoId = useSelector((state) => state.kakao.kakaoId);
 
     console.log(kakaoId);
 
-    const product = mockPostData.find((item) => item.id === parseInt(id));
+    const product = mockLowData.find((item) => item.id === parseInt(id));
 
     const [quantity, setQuantity] = useState(1);
 
@@ -125,7 +126,7 @@ const Post = () => {
     );
 };
 
-export default Post;
+export default LowPost;
 const Container = styled.div`
     width: 100%;
     padding: 0;

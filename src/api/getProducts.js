@@ -5,7 +5,7 @@ export const getProducts = async () => {
         // body, 
         {
             headers: {
-            "Content-Type": "*/*",
+            "Content-Type": "application/json",
             //   "Authorization": `Bearer ${accessToken}`
             },
         }

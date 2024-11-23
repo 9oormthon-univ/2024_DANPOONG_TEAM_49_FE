@@ -82,7 +82,7 @@ const Comment = () => {
     };
     setComment([...comment, newComment]); // 새 댓글 추가
     if(token){
-      postComment(id,comment,token);
+      postComment(id,newComment.content,token);
       setInputValue(""); // 입력 초기화
     }
   };
