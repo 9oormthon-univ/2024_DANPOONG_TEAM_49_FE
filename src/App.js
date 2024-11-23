@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='*' element={<NotFound/>} />
-          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
           <Route path='/success' element={<Success/>} />
           <Route path='/search' element={<Search/>} />
           <Route path="/comment/:id" element={<Comment />} />
