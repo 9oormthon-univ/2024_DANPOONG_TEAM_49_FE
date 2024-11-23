@@ -27,8 +27,8 @@ function App() {
         <Routes>
           <Route path='*' element={<NotFound/>} />
           {/* 로그인 */}
-          <Route path='/' element={<Splash/>} />
-          <Route path='/login' element={<Login/>} />
+          <Route path='/' element={<Login/>} />
+          {/* <Route path='/login' element={<Login/>} /> */}
           <Route path="/callback" element={<RedirectKakaoPage />} />
           <Route path='/signup/email' element={<SignUpEmail/>} />
           <Route path='/signup/email-cert' element={<SignUpEmailCert/>} />
