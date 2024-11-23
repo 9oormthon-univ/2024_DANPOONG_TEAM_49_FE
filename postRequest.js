@@ -1,13 +1,13 @@
 const http = require('http');
 
 const postData = JSON.stringify({
-    code: '49huU1iMd1QSEoLQfUYlrEwi__cBRicbemAIQ30yib0TX60N2INrVgAAAAQKKiUQAAABk1g4WAz6Fwx8Dt1GgQ'
+    code: 'ols5BQqW66SkeURgW9RRJvs-dg2ymM7RAAAAAQo8JJoAAAGTWOUFga-b-4epDDEo'
 });
 
 const options = {
     hostname: '54.180.75.157',
     port: 8080,
-    path: '/api/auth/code/kakao',
+    path: '/api/auth/token/save',
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
