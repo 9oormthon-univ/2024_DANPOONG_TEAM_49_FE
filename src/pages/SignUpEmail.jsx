@@ -16,37 +16,51 @@ const SignUpEmail = () => {
         setEmail(value);
 
         // 이메일 유효성 검사
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.(ac\.kr)$/;
         setIsValid(emailRegex.test(value));
     };
 
     const handleSendEmail = async () => {
         if (!isValid || isLoading) return;
-
+    
         try {
             setIsLoading(true);
-
-            await axios.post(
+    
+            const response = await axios.post(
                 'http://54.180.75.157:8080/api/auth/email',
-                { email },
+                { email }, // 이메일 데이터 전달
                 { headers: { 'Content-Type': 'application/json' } }
             );
-
+    
+            // 서버에서 받은 response를 콘솔에 출력
+            console.log("Response:", response);
+    
+            // 응답을 받으면 성공 알림
             alert('인증 코드 전송 완료!');
-            sessionStorage.setItem('email', email); // 이메일 저장
+            sessionStorage.setItem('email', email);
             navigate('/signup/email-cert');
         } catch (error) {
-            console.error('인증 코드 전송 실패:', error.response?.data || error.message);
-            alert('인증 코드 전송 실패ㅠ.ㅠ 다시 시도하세요!');
+            // error 객체가 있을 경우, response가 존재하는지 체크하여 로그 출력
+            if (error.response) {
+                console.error("Response Error:", error.response);
+                alert(`서버 오류: ${error.response.data.message || '알 수 없는 오류'}`);
+            } else if (error.request) {
+                console.error("Request Error:", error.request);
+                alert('서버 요청 실패, 네트워크를 확인하세요.');
+            } else {
+                console.error("Unknown Error:", error.message);
+                alert('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
+            }
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     return (
         <>
             <HeaderBar>
-                <BackButton onClick={() => navigate('/login')} />
+                <BackButton onClick={() => navigate('/')} />
             </HeaderBar>
             <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>

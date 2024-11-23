@@ -1,5 +1,5 @@
 import axios from 'axios';
-export const postComment = async (productId,comment) => {
+export const postComment = async (productId,comment,token) => {
   try {
     console.log("gained token :",token);
     const response = await axios.post(`http://54.180.75.157:8080/comments/${productId}/createComment`, 
