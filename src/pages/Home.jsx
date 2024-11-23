@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {Pagination } from 'swiper/modules';
+import {Autoplay, Pagination } from 'swiper/modules';
 import { useLocation, useNavigate } from 'react-router-dom';
 import mockPostData from "../components/mockPostData";
 import { getProducts } from '../api/getProducts';
@@ -166,7 +166,11 @@ const Home = () => {
           slidesPerView={2}
           loop={true}
           pagination={true}
-          modules={[Pagination]}
+          modules={[Pagination, Autoplay]}
+          autoplay={{
+            delay: 2500, // 슬라이드 간 간격 (밀리초)
+            disableOnInteraction: false, // 사용자 상호작용 후에도 autoplay 유지
+          }}
         >
           {mockSwiper[0].img.map((image, index) => (
             <SwiperSlide key={index}>

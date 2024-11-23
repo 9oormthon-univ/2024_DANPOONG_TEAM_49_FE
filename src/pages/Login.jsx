@@ -1,12 +1,36 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+//image
 import kakaoImage from '../images/kakao.png';
 import titleImage from '../images/기숙상점.png';
+import titleLogo from '../images/titlelogo.png';
+import logoImage from '../images/splashlogo.png';
+import lineImage from '../images/logoline.png';
 import axios from 'axios';
+
 
     const Login = () => {
         const navigate = useNavigate();
+        const [splash, setSplash] = useState(true); // Splash 상태
+        const [fadeOut, setFadeOut] = useState(false); // Fade-out 애니메이션 상태
+
+        useEffect(() => {
+            // 2초 후 fade-out 시작
+            const fadeOutTimer = setTimeout(() => {
+                setFadeOut(true);
+            }, 2000);
+
+            // 3초 후 SplashContainer 제거
+            const splashRemoveTimer = setTimeout(() => {
+                setSplash(false);
+            }, 3000);
+
+            return () => {
+                clearTimeout(fadeOutTimer);
+                clearTimeout(splashRemoveTimer);
+            };
+        }, []);
     
         // 카카오 SDK 로드
         useEffect(() => {
@@ -29,7 +53,7 @@ import axios from 'axios';
                     success: (authObj) => {
                         console.log('카카오 로그인 성공:', authObj);
                         // 로그인 성공 후 리다이렉트 URI로 이동
-                        const redirectUri = encodeURIComponent('http://localhost:3000/callback');
+                        const redirectUri = encodeURIComponent('https://danpoong-team-49.netlify.app/callback');
                         const clientId = 'cdd423a129bb50b1413fa39e3a72e142';  // 카카오 앱의 REST API 키
                         window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
                     },
@@ -141,31 +165,125 @@ import axios from 'axios';
             }
         }, []);  // 컴포넌트 마운트 시에만 실행
 
-    return (
-        <Container>
-            <Title src={titleImage} alt="Title Image" />
-            <ButtonWrapper>
-                <SignupButton>3초 바로 회원가입 ⚡</SignupButton>
-                <KakaoButton
-                    src={kakaoImage}
-                    alt="카카오 로그인"
-                    onClick={handleKakaoLogin}  // 로그인 버튼 클릭 시 카카오 로그인 호출
-                />
-            </ButtonWrapper>
-        </Container>
-    );
+        return (
+            <>
+                {splash && (
+                    <SplashContainer fadeOut={fadeOut}>
+                        <TitleGroup>
+                            <div className='splashTitle'>
+                                <img src={titleLogo} alt="기숙상점" />
+                            </div>
+                            <h5 className='subtitle1'>다양한 공동구매를 진행해보세요!</h5>
+                            <h5 className='subtitle2'>
+                                오늘부터 기숙상점
+                                <img src={lineImage} alt="로고 라인" />
+                            </h5>
+                        </TitleGroup>
+                        <Footer>Copyright 기숙상점. All rights reserved</Footer>
+                        <LogoImage />
+                    </SplashContainer>
+                )}
+                <Container>
+                    <Title src={titleImage} alt="기숙상점" />
+                    <ButtonWrapper>
+                        <SignupButton>3초 바로 회원가입 ⚡</SignupButton>
+                        <KakaoButton
+                            src={kakaoImage}
+                            alt="카카오 로그인"
+                            onClick={handleKakaoLogin}
+                        />
+                    </ButtonWrapper>
+                </Container>
+            </>
+        );
 };
 
 export default Login;
 
+const fadeOutAnimation = keyframes`
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+`;
+
+// SplashContainer 스타일
+const SplashContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white; /* 배경색 */
+    z-index: 999; /* 가장 상단에 표시 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: ${({ fadeOut }) => (fadeOut ? fadeOutAnimation : 'none')} 1s ease-out forwards;
+`;
+
+const TitleGroup = styled.div`
+    position:absolute;
+    top:0;
+    left:24px;
+    .splashTitle{
+        margin-top: 48px;
+        img {
+            width: 108px;
+            height: 30px;
+        }
+    }
+
+    .subtitle1{
+        font-size: 12px;
+        margin-top: 15px;
+    }
+    .subtitle2{
+        font-size: 16px;
+        margin-top: 10px;
+        color: #AF3400;
+        img {
+            width: 88px;
+            height: auto;
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+    }
+`
+
+const LogoImage = styled.div`
+    position: absolute;
+    margin-top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1150px;
+    height: 1150px;
+    background-image: url(${logoImage});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: fadeInBackground 3s ease-out, slideUp 3s ease-out;
+`;
+
+const Footer = styled.h5`
+    font-size: 12px;
+    margin-top: 670px;
+    text-align: center;
+    width: 100%;
+`;
+
+
+//login
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    z-index:1;
 `;
-
 
 const Title = styled.img`
     margin-bottom: 50px;

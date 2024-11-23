@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import progressBarImage from '../images/progressBar4.png';
 import checkmarkImage from '../images/checkmark.png';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const SignUpSuccess = () => {
     const navigate = useNavigate();
@@ -12,7 +13,11 @@ const SignUpSuccess = () => {
             <HeaderBar />
                 <ProgressBar src={progressBarImage} alt="Progress Bar" />
             <Container>
-                <CheckMark />
+            <span><DotLottieReact
+            src="https://lottie.host/dc7e4405-0aeb-47c0-8cea-80943d67144c/MDxIas7gLN.lottie"
+            loop
+            autoplay
+            /></span>
                 <Title>회원가입 완료</Title>
                 <Subtitle>이제부터 공동구매해주세요</Subtitle>
                 <InputButton
@@ -63,6 +68,10 @@ const Container = styled.div`
     justify-content: center;
     height: calc(100vh - 56px);
     background-color: #f9f9f9;
+    canvas{
+        width:350px;
+        height:350px;
+    }
 `;
 
 const Title = styled.h1`

@@ -13,7 +13,7 @@ function RedirectKakaoPage() {
     const code = params.get('code');  // URL에서 'code' 파라미터 추출
     const grantType = 'authorization_code';
     const REST_API_KEY = 'cdd423a129bb50b1413fa39e3a72e142';  // 카카오 앱의 REST API 키
-    const REDIRECT_URI = 'http://localhost:3000/callback';  // 리다이렉트 URI
+    const REDIRECT_URI = 'https://danpoong-team-49.netlify.app/callback';  // 리다이렉트 URI
 
     // URLSearchParams를 사용하여 폼 데이터 만들기
     const formData = new URLSearchParams();
